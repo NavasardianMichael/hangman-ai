@@ -1,0 +1,71 @@
+.composition {
+  .word {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 8rem;
+    padding: 2rem 1rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+    user-select: none;
+
+    @media (orientation: landscape) {
+      margin-top: 3rem;
+    }
+
+    &::after {
+      content: "|";
+      transform: translateY(-2px);
+      font-weight: 400;
+      color: black;
+      animation: cursor-blink 1s steps(2) infinite;
+    }
+
+    .letter {
+    }
+  }
+
+  .alphabet {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    padding: 2rem 1rem;
+    position: fixed;
+    left: 0;
+    bottom: 10%;
+    color: var(--primary-color);
+    font-weight: 500;
+    font-size: 1.25rem;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+
+    .letter {
+      all: unset;
+      background-color: rgba(var(--secondary-color-rgb-components), 0.6);
+      user-select: none;
+      flex-basis: calc(100% / 10 - 9 * 0.2rem / 10);
+      box-shadow: #b1b1b17d 0px 0px 1px 1px;
+      border-radius: 2px;
+
+      &:active {
+        background-color: rgba(var(--secondary-color-rgb-components), 0.5);
+        scale: 0.9;
+        transition: 0.3s;
+      }
+
+      &:disabled {
+        background-color: rgba(var(--secondary-color-rgb-components), 0.4);
+      }
+    }
+  }
+}
+
+@keyframes cursor-blink {
+  0% {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,105 @@
+.discovery {
+  .word {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    text-align: center;
+    margin-top: 3rem;
+    padding: 2rem 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+
+    @media (orientation: landscape) {
+      justify-content: start;
+    }
+
+    .cell {
+      outline: 1px solid var(--secondary-color);
+      flex-basis: calc(100% / 10 - 9 * 0.5rem / 10);
+
+      &:not(.guessed) {
+        & > span {
+          display: block;
+          scale: 0;
+        }
+      }
+
+      &.guessed {
+        & > span {
+          scale: 1;
+        }
+      }
+    }
+
+    &.success {
+      .cell {
+        background-color: rgba(30, 221, 30, 0.4);
+      }
+    }
+
+    &.fail {
+      .cell {
+        background-color: rgba(255, 0, 0, 0.3);
+      }
+    }
+  }
+
+  .alphabet {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    padding: 2rem 1rem;
+    position: fixed;
+    left: 0;
+    bottom: 10%;
+    color: var(--primary-color);
+    font-weight: 500;
+    font-size: 1.25rem;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+
+    &.disabled {
+      pointer-events: none;
+
+      & > .letter {
+        opacity: 0.6;
+      }
+    }
+
+    .letter {
+      all: unset;
+      background-color: rgba(var(--secondary-color-rgb-components), 0.6);
+      user-select: none;
+      flex-basis: calc(100% / 10 - 9 * 0.2rem / 10);
+      position: relative;
+
+      &:active {
+        background-color: rgba(var(--secondary-color-rgb-components), 0.4);
+        transform: scale(0.9);
+        transition: 0.3s;
+      }
+
+      &.wasted {
+        background-color: rgba(255, 0, 0, 0.096);
+
+        &:before {
+          position: absolute;
+          content: "";
+          left: 0;
+          top: 50%;
+          right: 0;
+          border-top: 1px solid;
+          border-color: var(--primary-color);
+          transform: rotate(-35deg);
+          transition: 0.3s;
+        }
+      }
+
+      &.guessed {
+        background-color: rgba(30, 221, 30, 0.24);
+      }
+    }
+  }
+}
