@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     'հայկական խաղ',
   ],
   verification: {
-    google: 'oKcgmON-ywG-URRMl98W-eX5-TkXRIo_eyLLz9dapmc',
+    google: 'otJjduk66KdJqUVQWUMGb3RCg7U5NGhdFLCDpcjP5_U',
   },
 }
 
