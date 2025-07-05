@@ -1,4 +1,4 @@
-import { GAME_STAGES, PLAYERS, PLAY_MODES } from 'helpers/constants/app'
+import { CATEGORIES, DIFFICULTY_LEVELS, GAME_STAGES, PLAYERS, PLAY_MODES } from 'helpers/constants/app'
 
 export type TAppSlice = {
   mode: (typeof PLAY_MODES)[keyof typeof PLAY_MODES] | null
@@ -14,6 +14,8 @@ export type TSettings = {
   timeLimit: number
   pointsToWin: number
   minLettersCount: number
+  category: (typeof CATEGORIES)[keyof typeof CATEGORIES]
+  difficulty: (typeof DIFFICULTY_LEVELS)[keyof typeof DIFFICULTY_LEVELS]
 }
 
 export type TAppActionPayloads = {

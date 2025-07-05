@@ -15,17 +15,10 @@ import styles from './styles.module.css'
 
 export const Start: StageComponent = ({ toNextPage }) => {
   const dispatch = useAppDispatch()
-  const { minLettersCount } = useAppSelector(selectGameSettings)
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = async (event) => {
     const mode = event.currentTarget.name as TAppSlice['mode']
     dispatch(setAppOptions({ mode }))
-    if (mode === PLAY_MODES.single) {
-      const newWord = await getWord({ minLettersCount })
-      console.log({ newWord });
-
-      dispatch(setAppOptions({ currentWord: newWord }))
-    }
     toNextPage(mode)
   }
 

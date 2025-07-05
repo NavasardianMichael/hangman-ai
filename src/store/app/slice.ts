@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { GAME_STAGES, PLAYERS, PLAY_MODES } from 'helpers/constants/app'
+import { CATEGORIES, DIFFICULTY_LEVELS, GAME_STAGES, PLAYERS, PLAY_MODES } from 'helpers/constants/app'
 import { TAppActionPayloads, TAppSlice } from './types'
 
 export const initialState: TAppSlice = {
@@ -16,6 +16,8 @@ export const initialState: TAppSlice = {
     timeLimit: 60,
     pointsToWin: 10,
     minLettersCount: 3,
+    category: CATEGORIES.ցանկացած,
+    difficulty: DIFFICULTY_LEVELS.միջին,
   },
 }
 

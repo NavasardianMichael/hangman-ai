@@ -1,18 +1,21 @@
 import { GoogleGenAI } from '@google/genai'
+import { GetWordAPI } from './types'
+import { DIFFICULTY_LEVELS } from 'helpers/constants/app'
 
-
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_KEY })
 export async function POST(request: Request) {
-  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_KEY })
   try {
-    const payload = await request.json();
-    const response = await ai.models.generateContent({
+    const payload: GetWordAPI['payload'] = await request.json()
+    const { minLettersCount, category, difficulty } = payload
+    const AIResponse = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
-      contents: `Generate a random armenian word with at least ${payload.minLettersCount} letters. The word should be suitable for a game of hangman. Just return the word without any additional text or formatting.`,
+      contents: `Ստեղծել մի բառ, որը համապատասխանում է հետևյալ չափանիշներին: Բառը պետք է լինի առնվազն ${minLettersCount} տառից բաղկացած, պատկանի "${category}" կատեգորիային  և ունենա "${difficulty}" բարդության մակարդակ հետևյալներից՝ ${Object.values(
+        DIFFICULTY_LEVELS
+      ).join(', ')}: Պատասխանել միայն բառով, առանց լրացուցիչ բացատրությունների կամ մեկնաբանությունների։`,
     })
-    const res = response.text
+    const res = AIResponse.text
     return new Response(res)
-  }
-  catch (error) {
+  } catch (error) {
     console.error('Error generating word:', error)
     return new Response(JSON.stringify(error), { status: 500 })
   }

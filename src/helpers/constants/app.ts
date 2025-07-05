@@ -1,3 +1,5 @@
+import { SelectProps } from 'antd'
+
 export const PLAYERS = {
   player1: 'player1',
   player2: 'player2',
@@ -16,6 +18,42 @@ export const GAME_STAGES = {
   summary: 'summary',
   end: 'end',
 } as const
+
+export const CATEGORIES = {
+  ցանկացած: 'ցանկացած',
+  երկրներ: 'երկրներ',
+  կենդանիներ: 'կենդանիներ',
+  ուտելիք: 'ուտելիք',
+  քաղաքներ: 'քաղաքներ',
+  մասնագիտություններ: 'մասնագիտություններ',
+  սպորտ: 'սպորտ',
+  երաժշտություն: 'երաժշտություն',
+  ֆիլմեր: 'ֆիլմեր',
+  գրքեր: 'գրքեր',
+  բնություն: 'բնություն',
+  պատմություն: 'պատմություն',
+  արվեստ: 'արվեստ',
+  գիտություն: 'գիտություն',
+  ֆուտբոլ: 'ֆուտբոլ',
+} as const
+
+export const CATEGORIES_OPTIONS: SelectProps['options'] = Object.entries(CATEGORIES).map(([label, value]) => ({
+  label,
+  value,
+}))
+
+export const DIFFICULTY_LEVELS = {
+  հեշտ: 'հեշտ',
+  միջին: 'միջին',
+  դժվար: 'դժվար',
+} as const
+
+export const DIFFICULTY_LEVELS_OPTIONS: SelectProps['options'] = Object.entries(DIFFICULTY_LEVELS).map(
+  ([label, value]) => ({
+    label,
+    value,
+  })
+)
 
 export const STAGES_WITH_CLEAR_BACKGROUND: (keyof typeof GAME_STAGES)[] = [
   GAME_STAGES.start,

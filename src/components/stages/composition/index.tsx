@@ -8,7 +8,6 @@ import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { StageComponent } from 'helpers/types/stage'
 import { LETTERS } from 'helpers/constants/app'
-import { processLocaleIssues } from 'helpers/utils/app'
 import { combineClassNames } from 'helpers/utils/styles'
 import { Audio } from 'components/shared/audio'
 import { CustomButton } from 'components/shared/customButton'
@@ -43,7 +42,7 @@ export const Composition: StageComponent = ({ toNextPage }) => {
         {Array.from(word).map((letter, i) => {
           return (
             <span key={i} className={styles.letter}>
-              {processLocaleIssues(letter)}
+              {letter}
             </span>
           )
         })}
@@ -52,7 +51,7 @@ export const Composition: StageComponent = ({ toNextPage }) => {
         {LETTERS.map((letter) => {
           return (
             <button className={styles.letter} key={letter} name={letter} onClick={handleAlphabetLetterClick}>
-              {processLocaleIssues(letter)}
+              {letter}
             </button>
           )
         })}

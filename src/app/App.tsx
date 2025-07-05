@@ -1,21 +1,23 @@
 'use client'
 
+import { FC, useEffect, useState } from 'react'
+import { StoreProvider } from 'store/Provider'
 import { Background } from 'components/background'
 import { Breadcrumb } from 'components/breadcrumb'
 import { Stages } from 'components/stages/Stages'
-import { FC, useEffect, useState } from 'react'
 import 'styles/commons.css'
 import 'styles/variables.css'
 import './app.css'
 import './index.css'
-import { StoreProvider } from 'store/Provider'
 
 export const App: FC = () => {
-  const [isTouchDevice, setIsTouchDevice] = useState(false)
+  const [isTouchDevice, setIsTouchDevice] = useState<boolean | null>(null)
 
   useEffect(() => {
     setIsTouchDevice(window.matchMedia('(pointer: coarse)').matches)
   }, [])
+
+  if (isTouchDevice == null) return null
 
   return (
     <StoreProvider>

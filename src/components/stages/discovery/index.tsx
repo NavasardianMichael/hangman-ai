@@ -5,7 +5,6 @@ import { Audio } from 'components/shared/audio'
 import { CustomButton } from 'components/shared/customButton'
 import { LETTERS, PLAY_MODES } from 'helpers/constants/app'
 import { StageComponent } from 'helpers/types/stage'
-import { processLocaleIssues } from 'helpers/utils/app'
 import { combineClassNames } from 'helpers/utils/styles'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
@@ -105,7 +104,7 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
                   : undefined
               )}
             >
-              <span>{processLocaleIssues(letter)}</span>
+              <span>{letter}</span>
             </span>
           )
         })}
@@ -134,7 +133,7 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
               )}
               onClick={handleAlphabetLetterClick}
             >
-              {processLocaleIssues(letter)}
+              {letter}
             </button>
           )
         })}

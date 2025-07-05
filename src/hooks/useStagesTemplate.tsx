@@ -89,7 +89,12 @@ export const useStagesTemplate = (): JSX.Element => {
       return
     }
 
-    const newStage = currentStage === GAME_STAGES.summary ? GAME_STAGES.composition : nextStage
+    const newStage =
+      currentStage === GAME_STAGES.summary
+        ? mode === PLAY_MODES.single
+          ? GAME_STAGES.discovery
+          : GAME_STAGES.composition
+        : nextStage
     dispatch(setAppOptions({ currentStage: newStage }))
   }
 
