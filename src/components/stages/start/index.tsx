@@ -2,12 +2,9 @@
 
 import { MouseEventHandler, useMemo } from 'react'
 import { Button, ConfigProvider, ThemeConfig } from 'antd'
-import { getWord } from 'app/getWord/client'
-import { selectGameSettings } from 'store/app/selectors'
 import { setAppOptions } from 'store/app/slice'
 import { TAppSlice } from 'store/app/types'
 import { useAppDispatch } from 'hooks/useAppDispatch'
-import { useAppSelector } from 'hooks/useAppSelector'
 import { StageComponent } from 'helpers/types/stage'
 import { PLAY_MODES } from 'helpers/constants/app'
 import { DownloadAppBtn } from 'components/downloadAppBtn'
@@ -44,8 +41,17 @@ export const Start: StageComponent = ({ toNextPage }) => {
     <ConfigProvider theme={config}>
       <div className={styles.start}>
         <DownloadAppBtn />
-        <Button type="primary" onClick={handleClick} name={PLAY_MODES.single} className={styles.startBtn}>
+        <Button
+          style={{ position: 'relative' }}
+          type="primary"
+          onClick={handleClick}
+          name={PLAY_MODES.single}
+          className={styles.startBtn}
+        >
           Մեկ հոգով
+          <span style={{ position: 'absolute', bottom: 8, left: '50%', fontSize: 6, transform: 'translateX(-50%)' }}>
+            արհեստական բանականության դեմ
+          </span>
         </Button>
         <Button type="primary" onClick={handleClick} name={PLAY_MODES.multiplayer} className={styles.startBtn}>
           Երկու հոգով
