@@ -25,6 +25,7 @@ export const metadata: Metadata = {
     'կախաղան խաղ',
     'հայկական խաղ',
   ],
+  robots: 'index, follow',
   verification: {
     google: 'otJjduk66KdJqUVQWUMGb3RCg7U5NGhdFLCDpcjP5_U',
   },
