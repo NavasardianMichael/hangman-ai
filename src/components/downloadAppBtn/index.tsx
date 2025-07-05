@@ -10,7 +10,8 @@ import Hint2Img from 'assets/images/hint2.png'
 import Hint3Img from 'assets/images/hint3.png'
 
 const isIos = () => /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase())
-let deferredPrompt: any = null
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let deferredPrompt: any | null = null
 
 const isIosInStandaloneMode = () => 'standalone' in window.navigator && window.navigator.standalone
 
@@ -30,12 +31,13 @@ export const DownloadAppBtn: FC = () => {
   const setAppInstalled = useCallback(() => {
     localStorage.setItem('pwa-installed', 'true')
     isAppInstalledRef.current = true
-  }, [isAppInstalledRef.current])
+  }, [])
 
   useEffect(() => {
     if (isAppInstalledRef.current) return setAppInstalled()
 
-    if (isIosRef.current) {
+    const isIos = isIosRef.current
+    if (isIos) {
       if (isIosInStandaloneMode()) return setAppInstalled()
       setShowIosDownloadAppHintModal(true)
       return
@@ -52,36 +54,17 @@ export const DownloadAppBtn: FC = () => {
     window.addEventListener('beforeinstallprompt', preservePrompt)
 
     return () => {
-      if (isIosRef.current) return
+      if (isIos) return
       window.removeEventListener('beforeinstallprompt', preservePrompt)
     }
-  }, [])
+  }, [setAppInstalled])
 
   useEffect(() => {
     window.addEventListener('appinstalled', setAppInstalled)
     return () => window.removeEventListener('appinstalled', setAppInstalled)
-  }, [])
+  }, [setAppInstalled])
 
-  useEffect(() => {
-    if (isAppInstalledRef.current) return
-
-    const openDownloadNotification = () => {
-      openNotification('top')
-    }
-
-    if (!isIosRef.current) {
-      timeoutRef.current = setTimeout(() => {
-        openDownloadNotification()
-      }, 1000)
-    }
-
-    return () => {
-      if (isIosRef.current) return
-      if (timeoutRef.current) clearTimeout(timeoutRef.current)
-    }
-  }, [])
-
-  const downloadAppBtnClick: MouseEventHandler = async (event) => {
+  const downloadAppBtnClick = useCallback<MouseEventHandler>(async () => {
     if (!deferredPrompt) return
 
     // Show the install prompt
@@ -92,9 +75,9 @@ export const DownloadAppBtn: FC = () => {
     if (outcome === 'accepted') setAppInstalled()
 
     deferredPrompt = null
-  }
+  }, [setAppInstalled])
 
-  const openNotification = (placement: NotificationPlacement) => {
+  const openNotification = useCallback((placement: NotificationPlacement) => {
     api.info({
       message: <b>Ներբեռնե՞լ հավելվածը</b>,
       duration: 0,
@@ -117,7 +100,25 @@ export const DownloadAppBtn: FC = () => {
       ),
       placement,
     })
-  }
+  }, [api, downloadAppBtnClick])
+
+  useEffect(() => {
+    if (isAppInstalledRef.current) return
+
+    const openDownloadNotification = () => {
+      openNotification('top')
+    }
+
+    if (!isIosRef.current) {
+      timeoutRef.current = setTimeout(() => {
+        openDownloadNotification()
+      }, 1000)
+    }
+
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    }
+  }, [openNotification])
 
   const contextValue = useMemo(() => ({ name: 'Ant Design' }), [])
 

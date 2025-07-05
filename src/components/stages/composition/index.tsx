@@ -1,7 +1,7 @@
 'use client'
 
 import { MouseEventHandler, useState } from 'react'
-import WritingAudio from 'assets/audio/writing.mp3'
+// import WritingAudio from 'assets/audio/writing.mp3'
 import { selectGameSettings } from 'store/app/selectors'
 import { setAppOptions } from 'store/app/slice'
 import { useAppDispatch } from 'hooks/useAppDispatch'
@@ -24,11 +24,11 @@ export const Composition: StageComponent = ({ toNextPage }) => {
     setWord(word + e.currentTarget.name)
   }
 
-  const handleRemoveCharClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+  const handleRemoveCharClick: MouseEventHandler<HTMLButtonElement> = () => {
     setWord((prev) => prev.substring(0, prev.length - 1))
   }
 
-  const handleStartDiscovery: MouseEventHandler<HTMLButtonElement> = (e) => {
+  const handleStartDiscovery: MouseEventHandler<HTMLButtonElement> = () => {
     dispatch(
       setAppOptions({
         currentWord: word,
@@ -69,7 +69,7 @@ export const Composition: StageComponent = ({ toNextPage }) => {
       <CustomButton disabled={word.length < settings.minLettersCount} onClick={handleStartDiscovery}>
         Անցնել գուշակելուն
       </CustomButton>
-      <Audio deps={[word]} src={WritingAudio} />
+      <Audio deps={[word]} src={'/writing.mp3'} />
     </div>
   )
 }

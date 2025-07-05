@@ -30,6 +30,8 @@ export const metadata: Metadata = {
   },
 }
 
-export default function Home() {
+function Home() {
   return <App />
 }
+
+export default Home

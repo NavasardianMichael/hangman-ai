@@ -5,5 +5,6 @@ export const useMemoizedCombinedClassNames = (
   list: ReadonlyArray<string | undefined>,
   deps: ReadonlyArray<unknown>
 ) => {
-  return useMemo(() => combineClassNames(...list), deps)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  return useMemo(() => combineClassNames(...list), [...deps])
 }

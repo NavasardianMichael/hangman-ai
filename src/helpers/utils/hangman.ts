@@ -1,6 +1,6 @@
 export const canvasCreator = (canvas: HTMLCanvasElement | null) => {
   if (!canvas) return
-  let context = canvas.getContext('2d')
+  const context = canvas.getContext('2d')
   if (!context) return
 
   const color = '#575757f0'

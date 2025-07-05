@@ -2,7 +2,7 @@
 
 import { MouseEventHandler, useMemo } from 'react'
 import { Button, ConfigProvider, ThemeConfig } from 'antd'
-import { getWord } from 'api/getWord/client'
+import { getWord } from 'app/getWord/client'
 import { selectGameSettings } from 'store/app/selectors'
 import { setAppOptions } from 'store/app/slice'
 import { TAppSlice } from 'store/app/types'
@@ -22,6 +22,8 @@ export const Start: StageComponent = ({ toNextPage }) => {
     dispatch(setAppOptions({ mode }))
     if (mode === PLAY_MODES.single) {
       const newWord = await getWord({ minLettersCount })
+      console.log({ newWord });
+
       dispatch(setAppOptions({ currentWord: newWord }))
     }
     toNextPage(mode)

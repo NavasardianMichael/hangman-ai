@@ -12,21 +12,25 @@ export const Audio: FC<TProps> = ({ deps, src }) => {
 
   useEffect(() => {
     audioRef?.current?.load()
-  }, [src, audioRef?.current])
+  }, [src])
 
   useEffect(() => {
+    const audio = audioRef?.current
+    if (!audio) return;
+
     if (deps.every((dep) => !dep)) return
     console.log({ deps })
 
     setTimeout(() => {
-      audioRef?.current?.play()
+      audio.play()
     }, 100)
 
     return () => {
-      if (!audioRef?.current) return
-      audioRef.current.pause()
-      audioRef.current.currentTime = 0
+      if (!audio) return;
+      audio.pause()
+      audio.currentTime = 0
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
 
   return <audio ref={audioRef} src={src} />

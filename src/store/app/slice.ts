@@ -45,7 +45,7 @@ export const appSlice = createSlice({
       state.points[opponent] += 1
     },
   },
-  extraReducers: (_builder) => {
+  extraReducers: () => {
     // builder
     //   .addCase(getUsersAsync.pending, (state, action) => {
     //     state.isPending = true

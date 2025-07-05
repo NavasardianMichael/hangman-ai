@@ -1,8 +1,6 @@
 import { FC } from 'react'
 import styles from './styles.module.css'
 
-type TProps = {}
-
-export const Loader: FC<TProps> = ({}) => {
+export const Loader: FC = () => {
   return <div className={styles.loader}>Loader</div>
 }

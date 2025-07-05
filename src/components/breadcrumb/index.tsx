@@ -3,14 +3,12 @@
 import { FC, useMemo } from 'react'
 import { selectAppOptions } from 'store/app/selectors'
 import { useAppSelector } from 'hooks/useAppSelector'
-import { GAME_STAGES, PLAYERS, STAGES_HIDE_BREADCRUMB } from 'helpers/constants/app'
+import { GAME_STAGES, PLAY_MODES, PLAYERS, STAGES_HIDE_BREADCRUMB } from 'helpers/constants/app'
 import { combineClassNames } from 'helpers/utils/styles'
 import styles from './styles.module.css'
 
-type TProps = {}
-
-export const Breadcrumb: FC<TProps> = ({}) => {
-  const { currentStage, currentPlayer } = useAppSelector(selectAppOptions)
+export const Breadcrumb: FC = () => {
+  const { currentStage, currentPlayer, mode } = useAppSelector(selectAppOptions)
 
   const text = useMemo(() => {
     const parts = [
@@ -36,7 +34,7 @@ export const Breadcrumb: FC<TProps> = ({}) => {
     return parts.join(' ')
   }, [currentStage, currentPlayer])
 
-  if (STAGES_HIDE_BREADCRUMB.includes(currentStage)) return
+  if (STAGES_HIDE_BREADCRUMB.includes(currentStage) || mode === PLAY_MODES.single) return
 
   return (
     <div className={styles.container}>

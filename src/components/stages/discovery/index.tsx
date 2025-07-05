@@ -1,21 +1,17 @@
 'use client'
 
-import { MouseEventHandler, useEffect, useMemo, useState } from 'react'
 import { Statistic } from 'antd'
-import CorrectWordAudio from 'assets/audio/correct.mp3'
-import LossAudio from 'assets/audio/loss.mp3'
-import ScribbleAudio from 'assets/audio/scribble.mp3'
-import WinAudio from 'assets/audio/win.mp3'
-import { selectAppOptions } from 'store/app/selectors'
-import { incrementCurrentPlayerPoint } from 'store/app/slice'
-import { useAppDispatch } from 'hooks/useAppDispatch'
-import { useAppSelector } from 'hooks/useAppSelector'
-import { StageComponent } from 'helpers/types/stage'
-import { GAME_STAGES, LETTERS, PLAY_MODES } from 'helpers/constants/app'
-import { processLocaleIssues } from 'helpers/utils/app'
-import { combineClassNames } from 'helpers/utils/styles'
 import { Audio } from 'components/shared/audio'
 import { CustomButton } from 'components/shared/customButton'
+import { LETTERS, PLAY_MODES } from 'helpers/constants/app'
+import { StageComponent } from 'helpers/types/stage'
+import { processLocaleIssues } from 'helpers/utils/app'
+import { combineClassNames } from 'helpers/utils/styles'
+import { useAppDispatch } from 'hooks/useAppDispatch'
+import { useAppSelector } from 'hooks/useAppSelector'
+import { MouseEventHandler, useEffect, useMemo, useState } from 'react'
+import { selectAppOptions } from 'store/app/selectors'
+import { incrementCurrentPlayerPoint } from 'store/app/slice'
 import { Hangman } from './hangman'
 import styles from './styles.module.css'
 
@@ -68,7 +64,7 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
 
   useEffect(() => {
     if (isWordGuessed) dispatch(incrementCurrentPlayerPoint())
-  }, [currentWordLettersArr, guessedLetters])
+  }, [currentWordLettersArr, dispatch, guessedLetters, isWordGuessed])
 
   useEffect(() => {
     console.log({ currentWordLettersArr })
@@ -114,10 +110,10 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
           )
         })}
       </div>
-      <Audio deps={[wastedLettersCount, currentWordLettersArr]} src={ScribbleAudio} />
-      <Audio deps={[isWordGuessed]} src={WinAudio} />
-      <Audio deps={[!isWordGuessed && wastedLettersCount > 6]} src={LossAudio} />
-      <Audio deps={[Object.values(guessedLetters).length]} src={CorrectWordAudio} />
+      <Audio deps={[wastedLettersCount, currentWordLettersArr]} src={'/scribble.mp3'} />
+      <Audio deps={[isWordGuessed]} src={'/win.mp3'} />
+      <Audio deps={[!isWordGuessed && wastedLettersCount > 6]} src={'/loss.mp3'} />
+      <Audio deps={[Object.values(guessedLetters).length]} src={'/correct.mp3'} />
       <Hangman step={wastedLettersCount} />
       <div
         className={combineClassNames(
