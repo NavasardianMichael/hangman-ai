@@ -1,70 +1,69 @@
-import {
-  DownloadOutlined
-} from '@ant-design/icons';
-import type { NotificationArgsProps } from 'antd';
-import { Button, Carousel, Modal, notification } from 'antd';
-import { createContext, FC, MouseEventHandler, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import Hint1Img from "assets/images/hint1.png";
-import Hint2Img from "assets/images/hint2.png";
-import Hint3Img from "assets/images/hint3.png";
+'use client'
+
+import { FC, MouseEventHandler, createContext, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { DownloadOutlined } from '@ant-design/icons'
+import type { NotificationArgsProps } from 'antd'
+import { Button, Carousel, Modal, notification } from 'antd'
+import Image from 'next/image'
+import Hint1Img from 'assets/images/hint1.png'
+import Hint2Img from 'assets/images/hint2.png'
+import Hint3Img from 'assets/images/hint3.png'
 
 const isIos = () => /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase())
-let deferredPrompt: any = null;
+let deferredPrompt: any = null
 
-const isIosInStandaloneMode = () =>
-  ('standalone' in window.navigator) && (window.navigator.standalone)
+const isIosInStandaloneMode = () => 'standalone' in window.navigator && window.navigator.standalone
 
-const isNonIosStandaloneMode = () =>
-  window.matchMedia('(display-mode: standalone)').matches
+const isNonIosStandaloneMode = () => window.matchMedia('(display-mode: standalone)').matches
 
-type NotificationPlacement = NotificationArgsProps['placement'];
+type NotificationPlacement = NotificationArgsProps['placement']
 
-const Context = createContext({ name: 'Default' });
+const Context = createContext({ name: 'Default' })
 
 export const DownloadAppBtn: FC = () => {
-  const [api, contextHolder] = notification.useNotification();
-  const [showIosDownloadAppHintModal, setShowIosDownloadAppHintModal] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const isIosRef = useRef(isIos());
-  const isAppInstalledRef = useRef(localStorage.getItem('pwa-installed') === 'true');
+  const [api, contextHolder] = notification.useNotification()
+  const [showIosDownloadAppHintModal, setShowIosDownloadAppHintModal] = useState(false)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const isIosRef = useRef(isIos())
+  const isAppInstalledRef = useRef(localStorage.getItem('pwa-installed') === 'true')
 
   const setAppInstalled = useCallback(() => {
     localStorage.setItem('pwa-installed', 'true')
-    isAppInstalledRef.current = true;
+    isAppInstalledRef.current = true
   }, [isAppInstalledRef.current])
 
   useEffect(() => {
-    if (isAppInstalledRef.current) return setAppInstalled();
+    if (isAppInstalledRef.current) return setAppInstalled()
 
     if (isIosRef.current) {
-      if (isIosInStandaloneMode()) return setAppInstalled();;
+      if (isIosInStandaloneMode()) return setAppInstalled()
       setShowIosDownloadAppHintModal(true)
       return
-    };
+    }
 
-    if (isNonIosStandaloneMode()) return setAppInstalled();;
+    if (isNonIosStandaloneMode()) return setAppInstalled()
 
     const preservePrompt = (event: Event) => {
       // Prevent the mini-infobar from appearing on mobile
-      event.preventDefault();
+      event.preventDefault()
       // Stash the event so it can be triggered later
-      deferredPrompt = event;
+      deferredPrompt = event
     }
-    window.addEventListener('beforeinstallprompt', preservePrompt);
+    window.addEventListener('beforeinstallprompt', preservePrompt)
 
     return () => {
-      if (isIosRef.current) return;
-      window.removeEventListener('beforeinstallprompt', preservePrompt);
+      if (isIosRef.current) return
+      window.removeEventListener('beforeinstallprompt', preservePrompt)
     }
   }, [])
 
   useEffect(() => {
     window.addEventListener('appinstalled', setAppInstalled)
-    return () => window.removeEventListener('appinstalled', setAppInstalled);
+    return () => window.removeEventListener('appinstalled', setAppInstalled)
   }, [])
 
   useEffect(() => {
-    if (isAppInstalledRef.current) return;
+    if (isAppInstalledRef.current) return
 
     const openDownloadNotification = () => {
       openNotification('top')
@@ -72,27 +71,27 @@ export const DownloadAppBtn: FC = () => {
 
     if (!isIosRef.current) {
       timeoutRef.current = setTimeout(() => {
-        openDownloadNotification();
-      }, 1000);
+        openDownloadNotification()
+      }, 1000)
     }
 
     return () => {
-      if (isIosRef.current) return;
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (isIosRef.current) return
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
     }
-  }, []);
+  }, [])
 
-  const downloadAppBtnClick: MouseEventHandler<HTMLElement> = async (event) => {
-    if (!deferredPrompt) return;
+  const downloadAppBtnClick: MouseEventHandler = async (event) => {
+    if (!deferredPrompt) return
 
     // Show the install prompt
-    deferredPrompt.prompt();
+    deferredPrompt.prompt()
     // Wait for the user to respond to the prompt
-    const { outcome } = await deferredPrompt.userChoice;
+    const { outcome } = await deferredPrompt.userChoice
 
     if (outcome === 'accepted') setAppInstalled()
 
-    deferredPrompt = null;
+    deferredPrompt = null
   }
 
   const openNotification = (placement: NotificationPlacement) => {
@@ -100,23 +99,27 @@ export const DownloadAppBtn: FC = () => {
       message: <b>Ներբեռնե՞լ հավելվածը</b>,
       duration: 0,
       icon: ' ',
-      description: <Context.Consumer>{() => {
-        return (
-          <Button
-            type="primary"
-            style={{ width: '100%' }}
-            onClick={downloadAppBtnClick}
-            icon={<DownloadOutlined />}
-          >
-            Ներբեռնել
-          </Button>
-        )
-      }}</Context.Consumer>,
+      description: (
+        <Context.Consumer>
+          {() => {
+            return (
+              <Button
+                type="primary"
+                style={{ width: '100%' }}
+                onClick={downloadAppBtnClick}
+                icon={<DownloadOutlined />}
+              >
+                Ներբեռնել
+              </Button>
+            )
+          }}
+        </Context.Consumer>
+      ),
       placement,
-    });
-  };
+    })
+  }
 
-  const contextValue = useMemo(() => ({ name: 'Ant Design' }), []);
+  const contextValue = useMemo(() => ({ name: 'Ant Design' }), [])
 
   return (
     <>
@@ -128,31 +131,40 @@ export const DownloadAppBtn: FC = () => {
           open={showIosDownloadAppHintModal}
           onCancel={() => setShowIosDownloadAppHintModal(false)}
           okButtonProps={{
-            style: { display: 'none' }
+            style: { display: 'none' },
           }}
           cancelButtonProps={{
-            style: { display: 'none' }
+            style: { display: 'none' },
           }}
         >
           <div style={{ maxHeight: '80vh', boxSizing: 'border-box' }}>
-
-            <Carousel autoplay arrows dots dotPosition='bottom' >
+            <Carousel autoplay arrows dots dotPosition="bottom">
               <div>
-                <img src={Hint1Img} alt="Hint 1" style={{ margin: 'auto', maxWidth: '100%', maxHeight: '80vh', objectFit: 'cover' }} />
+                <Image
+                  src={Hint1Img}
+                  alt="Hint 1"
+                  style={{ margin: 'auto', maxWidth: '100%', maxHeight: '80vh', objectFit: 'cover' }}
+                />
               </div>
               <div>
-                <img src={Hint2Img} alt="Hint 2" style={{ margin: 'auto', maxWidth: '100%', maxHeight: '80vh', objectFit: 'cover' }} />
+                <Image
+                  src={Hint2Img}
+                  alt="Hint 2"
+                  style={{ margin: 'auto', maxWidth: '100%', maxHeight: '80vh', objectFit: 'cover' }}
+                />
               </div>
               <div>
-                <img src={Hint3Img} alt="Hint 3" style={{ margin: 'auto', maxWidth: '100%', maxHeight: '80vh', objectFit: 'cover' }} />
+                <Image
+                  src={Hint3Img}
+                  alt="Hint 3"
+                  style={{ margin: 'auto', maxWidth: '100%', maxHeight: '80vh', objectFit: 'cover' }}
+                />
               </div>
             </Carousel>
           </div>
         </Modal>
       }
-      <Context.Provider value={contextValue}>
-        {contextHolder}
-      </Context.Provider>
+      <Context.Provider value={contextValue}>{contextHolder}</Context.Provider>
     </>
-  );
-};
+  )
+}

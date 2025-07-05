@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { GAME_STAGES, PLAY_MODES, PLAYERS } from 'helpers/constants/app'
+import { GAME_STAGES, PLAYERS, PLAY_MODES } from 'helpers/constants/app'
 import { TAppActionPayloads, TAppSlice } from './types'
 
 export const initialState: TAppSlice = {
@@ -9,14 +9,14 @@ export const initialState: TAppSlice = {
   currentWord: '',
   points: {
     player1: 0,
-    player2: 0
+    player2: 0,
   },
   settings: {
     withTimeLimit: false,
     timeLimit: 60,
     pointsToWin: 10,
-    minLettersCount: 3
-  }
+    minLettersCount: 3,
+  },
 }
 
 export const appSlice = createSlice({
@@ -24,7 +24,7 @@ export const appSlice = createSlice({
   initialState,
   reducers: {
     setAppOptions: (state, { payload }: PayloadAction<TAppActionPayloads['setAppOptions']>) => {
-      console.log({ payload });
+      console.log({ payload })
       return {
         ...state,
         ...payload,

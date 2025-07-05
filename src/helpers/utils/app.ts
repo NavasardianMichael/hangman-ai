@@ -1,3 +1,3 @@
 export const processLocaleIssues = (word: string) => {
-  return word.replaceAll("Ւ", "Ու");
-};
+  return word.replaceAll('Ւ', 'Ու')
+}

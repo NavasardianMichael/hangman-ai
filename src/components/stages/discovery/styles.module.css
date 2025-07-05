@@ -86,7 +86,7 @@
 
         &:before {
           position: absolute;
-          content: "";
+          content: '';
           left: 0;
           top: 50%;
           right: 0;

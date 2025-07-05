@@ -1,15 +1,13 @@
-import { useStagesTemplate } from 'hooks/useStagesTemplate';
-import { FC } from "react";
-import styles from "./styles.module.css";
+'use client'
 
-type Props = {};
+import { FC } from 'react'
+import { useStagesTemplate } from 'hooks/useStagesTemplate'
+import styles from './styles.module.css'
+
+type Props = {}
 
 export const Stages: FC<Props> = ({}) => {
   const Stage = useStagesTemplate()
 
-  return (
-    <div className={styles.stage}>
-      {Stage}
-    </div>
-  );
-};
+  return <div className={styles.stage}>{Stage}</div>
+}

@@ -1,23 +1,23 @@
 'use client'
 
-import { StageComponent } from 'helpers/types/stage'
-import { GAME_STAGES, LETTERS, PLAY_MODES } from 'helpers/constants/app'
 import { MouseEventHandler, useEffect, useMemo, useState } from 'react'
-import { useAppSelector } from 'hooks/useAppSelector'
-import { selectAppOptions } from 'store/app/selectors'
-import { combineClassNames } from 'helpers/utils/styles'
-import { useAppDispatch } from 'hooks/useAppDispatch'
-import { incrementCurrentPlayerPoint } from 'store/app/slice'
-import { CustomButton } from 'components/shared/customButton'
-import { Hangman } from './hangman'
-import { Audio } from 'components/shared/audio'
+import { Statistic } from 'antd'
 import CorrectWordAudio from 'assets/audio/correct.mp3'
+import LossAudio from 'assets/audio/loss.mp3'
 import ScribbleAudio from 'assets/audio/scribble.mp3'
 import WinAudio from 'assets/audio/win.mp3'
-import LossAudio from 'assets/audio/loss.mp3'
-import styles from './styles.module.css'
+import { selectAppOptions } from 'store/app/selectors'
+import { incrementCurrentPlayerPoint } from 'store/app/slice'
+import { useAppDispatch } from 'hooks/useAppDispatch'
+import { useAppSelector } from 'hooks/useAppSelector'
+import { StageComponent } from 'helpers/types/stage'
+import { GAME_STAGES, LETTERS, PLAY_MODES } from 'helpers/constants/app'
 import { processLocaleIssues } from 'helpers/utils/app'
-import { Statistic } from 'antd'
+import { combineClassNames } from 'helpers/utils/styles'
+import { Audio } from 'components/shared/audio'
+import { CustomButton } from 'components/shared/customButton'
+import { Hangman } from './hangman'
+import styles from './styles.module.css'
 
 export const Discovery: StageComponent = ({ toNextPage }) => {
   const dispatch = useAppDispatch()
@@ -39,12 +39,10 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
 
   const countdownDeadline = useMemo(() => {
     if (!settings.withTimeLimit || settings.timeLimit <= 0) return 0
-    return Date.now() + (settings.timeLimit) * 1000
+    return Date.now() + settings.timeLimit * 1000
   }, [settings.timeLimit, settings.withTimeLimit])
 
-  const handleAlphabetLetterClick: MouseEventHandler<HTMLButtonElement> = (
-    e
-  ) => {
+  const handleAlphabetLetterClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     const letter = e.currentTarget.name.toUpperCase()
 
     console.log({ letter })
@@ -80,8 +78,15 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
     <div className={styles.discovery}>
       {settings.withTimeLimit && settings.timeLimit > 0 && (
         <Statistic.Timer
-          style={{ textAlign: 'center', position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', fontVariantNumeric: 'tabular-nums' }}
-          type='countdown'
+          style={{
+            textAlign: 'center',
+            position: 'absolute',
+            top: 0,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            fontVariantNumeric: 'tabular-nums',
+          }}
+          type="countdown"
           value={countdownDeadline}
           onFinish={() => toNextPage()}
         />
@@ -99,9 +104,7 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
               key={i}
               className={combineClassNames(
                 styles.cell,
-                isWordGuessed ||
-                  (!isWordGuessed &&
-                    (guessedLetters[letter] || wastedLettersCount > 6))
+                isWordGuessed || (!isWordGuessed && (guessedLetters[letter] || wastedLettersCount > 6))
                   ? styles.guessed
                   : undefined
               )}
@@ -111,19 +114,10 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
           )
         })}
       </div>
-      <Audio
-        deps={[wastedLettersCount, currentWordLettersArr]}
-        src={ScribbleAudio}
-      />
+      <Audio deps={[wastedLettersCount, currentWordLettersArr]} src={ScribbleAudio} />
       <Audio deps={[isWordGuessed]} src={WinAudio} />
-      <Audio
-        deps={[!isWordGuessed && wastedLettersCount > 6]}
-        src={LossAudio}
-      />
-      <Audio
-        deps={[Object.values(guessedLetters).length]}
-        src={CorrectWordAudio}
-      />
+      <Audio deps={[!isWordGuessed && wastedLettersCount > 6]} src={LossAudio} />
+      <Audio deps={[Object.values(guessedLetters).length]} src={CorrectWordAudio} />
       <Hangman step={wastedLettersCount} />
       <div
         className={combineClassNames(
@@ -151,9 +145,7 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
       </div>
       {(isWordGuessed || wastedLettersCount > 6) && (
         <CustomButton onClick={handleShowSummary}>
-          {mode === PLAY_MODES.single
-            ? `Շարունակել`
-            : `Անցնել հաջորդ խաղացողին`}
+          {mode === PLAY_MODES.single ? `Շարունակել` : `Անցնել հաջորդ խաղացողին`}
         </CustomButton>
       )}
     </div>
