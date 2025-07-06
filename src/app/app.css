@@ -1,3 +1,30 @@
+.app-title {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  font-size: 2rem;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 32px;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 3.8rem;
+    background: #575757b1;
+    z-index: -1;
+  }
+}
+
 .app {
   box-sizing: border-box;
   height: 100vh;

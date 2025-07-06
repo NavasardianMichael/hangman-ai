@@ -7,6 +7,7 @@ export type TAppSlice = {
   currentWord: string
   points: Record<keyof typeof PLAYERS, number>
   settings: TSettings
+  playerWon: (typeof PLAYERS)[keyof typeof PLAYERS] | 'draw' | null
 }
 
 export type TSettings = {

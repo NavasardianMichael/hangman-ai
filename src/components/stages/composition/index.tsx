@@ -1,7 +1,6 @@
 'use client'
 
 import { MouseEventHandler, useState } from 'react'
-// import WritingAudio from 'assets/audio/writing.mp3'
 import { selectGameSettings } from 'store/app/selectors'
 import { setAppOptions } from 'store/app/slice'
 import { useAppDispatch } from 'hooks/useAppDispatch'
@@ -9,7 +8,6 @@ import { useAppSelector } from 'hooks/useAppSelector'
 import { StageComponent } from 'helpers/types/stage'
 import { LETTERS } from 'helpers/constants/app'
 import { combineClassNames } from 'helpers/utils/styles'
-import { Audio } from 'components/shared/audio'
 import { CustomButton } from 'components/shared/customButton'
 import styles from './styles.module.css'
 
@@ -68,7 +66,6 @@ export const Composition: StageComponent = ({ toNextPage }) => {
       <CustomButton disabled={word.length < settings.minLettersCount} onClick={handleStartDiscovery}>
         Անցնել գուշակելուն
       </CustomButton>
-      <Audio deps={[word]} src={'/writing.mp3'} />
     </div>
   )
 }

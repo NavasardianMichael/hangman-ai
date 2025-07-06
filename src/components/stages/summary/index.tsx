@@ -1,17 +1,17 @@
 'use client'
 
-import { selectAppOptions, selectGameSettings, selectIsSingleMode, selectPoints } from 'store/app/selectors'
-import { setAppOptions } from 'store/app/slice'
+import { getWord } from 'app/getWord/client'
+import { CustomButton } from 'components/shared/customButton'
+import { PLAYERS } from 'helpers/constants/app'
+import { StageComponent } from 'helpers/types/stage'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { useOpponent } from 'hooks/useOpponent'
-import { StageComponent } from 'helpers/types/stage'
-import { PLAYERS } from 'helpers/constants/app'
-import { CustomButton } from 'components/shared/customButton'
-import styles from './styles.module.css'
-import { getWord } from 'app/getWord/client'
-import { TAppSlice } from 'store/app/types'
 import { useState } from 'react'
+import { selectAppOptions, selectGameSettings, selectIsSingleMode, selectPoints } from 'store/app/selectors'
+import { setAppOptions } from 'store/app/slice'
+import { TAppSlice } from 'store/app/types'
+import styles from './styles.module.css'
 
 export const Summary: StageComponent = ({ toNextPage }) => {
   const dispatch = useAppDispatch()
@@ -20,7 +20,8 @@ export const Summary: StageComponent = ({ toNextPage }) => {
   const isSingleMode = useAppSelector(selectIsSingleMode)
 
   const { player1, player2 } = useAppSelector(selectPoints)
-  const { currentPlayer, currentWord } = useAppSelector(selectAppOptions)
+  const { currentPlayer, currentWord, playerWon } = useAppSelector(selectAppOptions)
+
   const opponent = useOpponent()
 
   const handleNextPlayerComposes = async () => {
@@ -32,7 +33,7 @@ export const Summary: StageComponent = ({ toNextPage }) => {
     const payload: Partial<TAppSlice> = {
       currentPlayer: opponent,
     }
-    if (isSingleMode) {
+    if (isSingleMode && !playerWon) {
       const newWord = await getWord({ minLettersCount, category, difficulty })
       payload.currentWord = newWord
     }
@@ -54,11 +55,13 @@ export const Summary: StageComponent = ({ toNextPage }) => {
         {!isSingleMode && <p className={styles.hint}>Խաղացող 2՝ {player2} միավոր</p>}
       </div>
 
-      <CustomButton style={{ fontSize: '.9rem' }} onClick={handleNextPlayerComposes} disabled={isPending}>
-        {isSingleMode
-          ? 'Շարունակել'
-          : `Բառ գրելու հերթը ${currentPlayer === PLAYERS.player1 ? 'երկրորդ' : 'առաջին'} խաղացողինն է`}
-      </CustomButton>
+      {
+        <CustomButton style={{ fontSize: '.9rem' }} onClick={handleNextPlayerComposes} disabled={isPending}>
+          {playerWon || isSingleMode
+            ? 'Շարունակել'
+            : `Բառ գրելու հերթը ${currentPlayer === PLAYERS.player1 ? 'երկրորդ' : 'առաջին'} խաղացողինն է`}
+        </CustomButton>
+      }
     </div>
   )
 }

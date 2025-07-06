@@ -1,3 +1,7 @@
+:global(body):not(:has(.start)) :global(.app-title) {
+  display: none;
+}
+
 .start {
   text-transform: uppercase;
   height: 100svh;

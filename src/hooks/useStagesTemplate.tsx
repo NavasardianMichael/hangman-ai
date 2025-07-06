@@ -4,7 +4,7 @@ import { JSX } from 'react'
 import { selectAppOptions } from 'store/app/selectors'
 import { setAppOptions } from 'store/app/slice'
 import { TAppSlice } from 'store/app/types'
-import { GAME_STAGES, PLAY_MODES } from 'helpers/constants/app'
+import { GAME_STAGES, PLAY_MODES, PLAYERS } from 'helpers/constants/app'
 import { Composition } from 'components/stages/composition'
 import { Discovery } from 'components/stages/discovery'
 import { End } from 'components/stages/end'
@@ -15,7 +15,13 @@ import { useAppDispatch } from './useAppDispatch'
 import { useAppSelector } from './useAppSelector'
 
 export const useStagesTemplate = (): JSX.Element => {
-  const { currentStage, mode } = useAppSelector(selectAppOptions)
+  const {
+    currentStage,
+    currentPlayer,
+    mode,
+    points: { player1, player2 },
+    settings: { pointsToWin },
+  } = useAppSelector(selectAppOptions)
   const dispatch = useAppDispatch()
 
   const STAGES_TEMPLATE = {
@@ -81,11 +87,24 @@ export const useStagesTemplate = (): JSX.Element => {
     const { nextStage } = actualMode
       ? STAGES_TEMPLATE[actualMode][currentStage]
       : STAGES_TEMPLATE[PLAY_MODES.single][currentStage]
-    console.log({ mode, nextStage })
 
-    const hasGameEnd = true
-    if (!hasGameEnd) {
-      dispatch(setAppOptions({ currentStage: nextStage }))
+    if (mode === PLAY_MODES.single && player1 >= pointsToWin) {
+      dispatch(setAppOptions({ currentStage: nextStage, playerWon: PLAYERS.player1 }))
+      return
+    }
+
+    if (player1 === player2 && player2 >= pointsToWin) {
+      dispatch(setAppOptions({ currentStage: nextStage, playerWon: 'draw' }))
+      return
+    }
+
+    if (player1 >= pointsToWin && currentPlayer === PLAYERS.player1) {
+      dispatch(setAppOptions({ currentStage: nextStage, playerWon: PLAYERS.player1 }))
+      return
+    }
+
+    if (player2 >= pointsToWin && currentPlayer === PLAYERS.player2) {
+      dispatch(setAppOptions({ currentStage: nextStage, playerWon: PLAYERS.player2 }))
       return
     }
 

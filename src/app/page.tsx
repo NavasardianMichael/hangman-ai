@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     title: 'Կախաղան | Hangman',
     description:
       'Գուշակիր արհեստական բանականության մտապահած բառը: Հայտնի ԿԱԽԱՂԱՆ (HANGMAN) Խաղի հայկական տարբերակն արդեն հասանելի է առցանց',
-    siteName: 'Կախաղան',
+    siteName: 'Կախաղան | Hangman',
     images: [
       {
         url: '/logo-192x192.png',
@@ -71,7 +71,12 @@ export const metadata: Metadata = {
 }
 
 function Home() {
-  return <App />
+  return (
+    <>
+      <h1 className="app-title">Կախաղան</h1>
+      <App />
+    </>
+  )
 }
 
 export default Home

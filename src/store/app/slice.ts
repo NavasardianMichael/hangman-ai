@@ -12,13 +12,14 @@ export const initialState: TAppSlice = {
     player2: 0,
   },
   settings: {
-    withTimeLimit: false,
+    withTimeLimit: true,
     timeLimit: 60,
     pointsToWin: 10,
     minLettersCount: 3,
     category: CATEGORIES.ցանկացած,
     difficulty: DIFFICULTY_LEVELS.միջին,
   },
+  playerWon: null,
 }
 
 export const appSlice = createSlice({

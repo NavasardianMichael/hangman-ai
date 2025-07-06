@@ -50,6 +50,7 @@ export const DownloadAppBtn: FC = () => {
       event.preventDefault()
       // Stash the event so it can be triggered later
       deferredPrompt = event
+      alert(deferredPrompt)
     }
     window.addEventListener('beforeinstallprompt', preservePrompt)
 
@@ -66,7 +67,7 @@ export const DownloadAppBtn: FC = () => {
 
   const downloadAppBtnClick = useCallback<MouseEventHandler>(async () => {
     if (!deferredPrompt) return
-
+    alert('downloadAppBtnClick')
     // Show the install prompt
     deferredPrompt.prompt()
     // Wait for the user to respond to the prompt
@@ -77,30 +78,33 @@ export const DownloadAppBtn: FC = () => {
     deferredPrompt = null
   }, [setAppInstalled])
 
-  const openNotification = useCallback((placement: NotificationPlacement) => {
-    api.info({
-      message: <b>Ներբեռնե՞լ հավելվածը</b>,
-      duration: 0,
-      icon: ' ',
-      description: (
-        <Context.Consumer>
-          {() => {
-            return (
-              <Button
-                type="primary"
-                style={{ width: '100%' }}
-                onClick={downloadAppBtnClick}
-                icon={<DownloadOutlined />}
-              >
-                Ներբեռնել
-              </Button>
-            )
-          }}
-        </Context.Consumer>
-      ),
-      placement,
-    })
-  }, [api, downloadAppBtnClick])
+  const openNotification = useCallback(
+    (placement: NotificationPlacement) => {
+      api.info({
+        message: <b>Ներբեռնե՞լ հավելվածը</b>,
+        duration: 0,
+        icon: ' ',
+        description: (
+          <Context.Consumer>
+            {() => {
+              return (
+                <Button
+                  type="primary"
+                  style={{ width: '100%' }}
+                  onClick={downloadAppBtnClick}
+                  icon={<DownloadOutlined />}
+                >
+                  Ներբեռնել
+                </Button>
+              )
+            }}
+          </Context.Consumer>
+        ),
+        placement,
+      })
+    },
+    [api, downloadAppBtnClick]
+  )
 
   useEffect(() => {
     if (isAppInstalledRef.current) return

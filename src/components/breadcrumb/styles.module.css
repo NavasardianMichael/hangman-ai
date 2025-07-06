@@ -2,12 +2,12 @@
   position: absolute;
   left: 0;
   top: 0;
-  text-align: center;
   width: 100%;
 
   .breadcrumb {
     margin-top: 0.45rem;
     margin-bottom: 0;
+    margin-left: 10px;
     font-size: 0.8rem;
     font-weight: 500;
     font-size: 1rem;

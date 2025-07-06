@@ -96,6 +96,7 @@ export const Settings: StageComponent = ({ toNextPage }) => {
               onChange={handleCategoryChange}
               options={CATEGORIES_OPTIONS}
               disabled={isPending}
+              loading={isPending}
             />
           </Form.Item>
         )}
@@ -106,6 +107,7 @@ export const Settings: StageComponent = ({ toNextPage }) => {
               onChange={handleDifficultyChange}
               options={DIFFICULTY_LEVELS_OPTIONS}
               disabled={isPending}
+              loading={isPending}
             />
           </Form.Item>
         )}

@@ -32,10 +32,15 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
     return Object.keys(wastedLetters).length
   }, [wastedLetters])
 
+  const isWordGuessed = useMemo(() => {
+    return currentWordLettersArr.every((letter) => guessedLetters[letter])
+  }, [currentWordLettersArr, guessedLetters])
+
   const countdownDeadline = useMemo(() => {
+    if (isWordGuessed || wastedLettersCount > 6) return Date.now()
     if (!settings.withTimeLimit || settings.timeLimit <= 0) return 0
     return Date.now() + settings.timeLimit * 1000
-  }, [settings.timeLimit, settings.withTimeLimit])
+  }, [isWordGuessed, settings.timeLimit, settings.withTimeLimit, wastedLettersCount])
 
   const handleAlphabetLetterClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     const letter = e.currentTarget.name.toUpperCase()
@@ -57,10 +62,6 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
     toNextPage()
   }
 
-  const isWordGuessed = useMemo(() => {
-    return currentWordLettersArr.every((letter) => guessedLetters[letter])
-  }, [currentWordLettersArr, guessedLetters])
-
   useEffect(() => {
     if (isWordGuessed) dispatch(incrementCurrentPlayerPoint())
   }, [currentWordLettersArr, dispatch, guessedLetters, isWordGuessed])
@@ -77,8 +78,7 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
             textAlign: 'center',
             position: 'absolute',
             top: 0,
-            left: '50%',
-            transform: 'translateX(-50%)',
+            right: 10,
             fontVariantNumeric: 'tabular-nums',
           }}
           type="countdown"
