@@ -8,6 +8,7 @@ import Image from 'next/image'
 import Hint1Img from 'assets/images/hint1.png'
 import Hint2Img from 'assets/images/hint2.png'
 import Hint3Img from 'assets/images/hint3.png'
+import { isInWebView } from 'helpers/utils/commons'
 
 const isIos = () => /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase())
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -26,16 +27,13 @@ export const DownloadAppBtn: FC = () => {
   const [showIosDownloadAppHintModal, setShowIosDownloadAppHintModal] = useState(false)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const isIosRef = useRef(isIos())
-  const isAppInstalledRef = useRef(localStorage.getItem('pwa-installed') === 'true')
+  const isInWebViewRef = useRef(isInWebView())
 
   const setAppInstalled = useCallback(() => {
     localStorage.setItem('pwa-installed', 'true')
-    isAppInstalledRef.current = true
   }, [])
 
   useEffect(() => {
-    if (isAppInstalledRef.current) return setAppInstalled()
-
     const isIos = isIosRef.current
     if (isIos) {
       if (isIosInStandaloneMode()) return setAppInstalled()
@@ -43,6 +41,7 @@ export const DownloadAppBtn: FC = () => {
       return
     }
 
+    if (isInWebViewRef.current) return
     if (isNonIosStandaloneMode()) return setAppInstalled()
 
     const preservePrompt = (event: Event) => {
@@ -105,8 +104,6 @@ export const DownloadAppBtn: FC = () => {
   )
 
   useEffect(() => {
-    if (isAppInstalledRef.current) return
-
     const openDownloadNotification = () => {
       openNotification('top')
     }

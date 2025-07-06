@@ -1,6 +1,6 @@
 'use client'
 
-import { MouseEventHandler, useMemo } from 'react'
+import { MouseEventHandler, useMemo, useRef } from 'react'
 import { Button, ConfigProvider, ThemeConfig } from 'antd'
 import { setAppOptions } from 'store/app/slice'
 import { TAppSlice } from 'store/app/types'
@@ -12,6 +12,7 @@ import styles from './styles.module.css'
 
 export const Start: StageComponent = ({ toNextPage }) => {
   const dispatch = useAppDispatch()
+  const isAppInstalledRef = useRef(localStorage.getItem('pwa-installed') === 'true')
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = async (event) => {
     const mode = event.currentTarget.name as TAppSlice['mode']
@@ -40,7 +41,7 @@ export const Start: StageComponent = ({ toNextPage }) => {
   return (
     <ConfigProvider theme={config}>
       <div className={styles.start}>
-        <DownloadAppBtn />
+        {!isAppInstalledRef.current && <DownloadAppBtn />}
         <Button
           style={{ position: 'relative' }}
           type="primary"
