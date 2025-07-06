@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     siteName: 'Կախաղան | Hangman',
     images: [
       {
-        url: '/logo-192x192.png',
+        url: '/icon-192x192.png',
         alt: 'Կախաղան - Armenian Hangman Game',
       },
     ],
