@@ -78,7 +78,6 @@ export const useStagesTemplate = (): JSX.Element => {
       },
     },
   }
-  console.log({ mode })
 
   const { Component } = mode ? STAGES_TEMPLATE[mode][currentStage] : STAGES_TEMPLATE[PLAY_MODES.single][currentStage]
 

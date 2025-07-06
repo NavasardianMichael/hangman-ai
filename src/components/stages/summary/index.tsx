@@ -56,7 +56,12 @@ export const Summary: StageComponent = ({ toNextPage }) => {
       </div>
 
       {
-        <CustomButton style={{ fontSize: '.9rem' }} onClick={handleNextPlayerComposes} disabled={isPending}>
+        <CustomButton
+          style={{ fontSize: '.9rem' }}
+          onClick={handleNextPlayerComposes}
+          disabled={isPending}
+          loading={isPending}
+        >
           {playerWon || isSingleMode
             ? 'Շարունակել'
             : `Բառ գրելու հերթը ${currentPlayer === PLAYERS.player1 ? 'երկրորդ' : 'առաջին'} խաղացողինն է`}

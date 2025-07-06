@@ -111,7 +111,7 @@ export const Settings: StageComponent = ({ toNextPage }) => {
             />
           </Form.Item>
         )}
-        <CustomButton disabled={isStartGameDisabled} onClick={handleStartGameBtnClick}>
+        <CustomButton loading={isPending} disabled={isStartGameDisabled} onClick={handleStartGameBtnClick}>
           Սկսել խաղը
         </CustomButton>
       </Form>

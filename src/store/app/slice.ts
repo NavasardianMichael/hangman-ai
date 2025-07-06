@@ -27,7 +27,6 @@ export const appSlice = createSlice({
   initialState,
   reducers: {
     setAppOptions: (state, { payload }: PayloadAction<TAppActionPayloads['setAppOptions']>) => {
-      console.log({ payload })
       return {
         ...state,
         ...payload,

@@ -16,17 +16,16 @@ export const Audio: FC<TProps> = ({ deps, src }) => {
 
   useEffect(() => {
     const audio = audioRef?.current
-    if (!audio) return;
+    if (!audio) return
 
     if (deps.every((dep) => !dep)) return
-    console.log({ deps })
 
     setTimeout(() => {
       audio.play()
     }, 100)
 
     return () => {
-      if (!audio) return;
+      if (!audio) return
       audio.pause()
       audio.currentTime = 0
     }

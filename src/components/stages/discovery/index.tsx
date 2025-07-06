@@ -45,8 +45,6 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
   const handleAlphabetLetterClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     const letter = e.currentTarget.name.toUpperCase()
 
-    console.log({ letter })
-
     if (!currentWord.toUpperCase().includes(letter)) {
       setWastedLetters((prev) => ({ ...prev, [letter]: true }))
       // if(Object.keys(wastedLetters).length + 1 >= 7) {
@@ -65,10 +63,6 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
   useEffect(() => {
     if (isWordGuessed) dispatch(incrementCurrentPlayerPoint())
   }, [currentWordLettersArr, dispatch, guessedLetters, isWordGuessed])
-
-  useEffect(() => {
-    console.log({ currentWordLettersArr })
-  }, [currentWordLettersArr])
 
   return (
     <div className={styles.discovery}>

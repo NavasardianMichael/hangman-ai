@@ -1,12 +1,13 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react'
+import { Button, ButtonProps } from 'antd'
+import { DetailedHTMLProps, FC } from 'react'
 import styles from './styles.module.css'
 
-type TProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+type TProps = DetailedHTMLProps<ButtonProps, HTMLButtonElement>
 
 export const CustomButton: FC<TProps> = (props) => {
   return (
-    <button className={styles.startGameBtn} {...props}>
+    <Button className={styles.startGameBtn} {...props}>
       {props.children}
-    </button>
+    </Button>
   )
 }

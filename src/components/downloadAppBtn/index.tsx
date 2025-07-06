@@ -50,7 +50,6 @@ export const DownloadAppBtn: FC = () => {
       event.preventDefault()
       // Stash the event so it can be triggered later
       deferredPrompt = event
-      alert(deferredPrompt)
     }
     window.addEventListener('beforeinstallprompt', preservePrompt)
 
@@ -67,7 +66,6 @@ export const DownloadAppBtn: FC = () => {
 
   const downloadAppBtnClick = useCallback<MouseEventHandler>(async () => {
     if (!deferredPrompt) return
-    alert('downloadAppBtnClick')
     // Show the install prompt
     deferredPrompt.prompt()
     // Wait for the user to respond to the prompt
