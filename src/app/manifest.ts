@@ -13,13 +13,13 @@ export default function manifest(): MetadataRoute.Manifest {
       {
         src: '/screenshot1.png',
         type: 'image/png',
-        sizes: '381x866',
+        sizes: '379x863',
         form_factor: 'wide',
       },
       {
         src: '/screenshot2.png',
         type: 'image/png',
-        sizes: '378x869',
+        sizes: '379x863',
         form_factor: 'narrow',
       },
       {
