@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   manifest: '/manifest.webmanifest',
@@ -70,6 +71,16 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="hy">
+      <head>
+<Script async src="https://www.googletagmanager.com/gtag/js?id=G-HJFMPR9938"></Script>
+<Script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HJFMPR9938');
+</Script>
+      </head>
       <body>{children}</body>
     </html>
   )
