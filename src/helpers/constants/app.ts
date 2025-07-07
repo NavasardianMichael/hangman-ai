@@ -167,3 +167,5 @@ export const LETTERS = [
   'Մ',
   'Շ',
 ] as const
+
+export const SPACE_CHAR = '⌴' as const

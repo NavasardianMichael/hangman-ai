@@ -160,3 +160,7 @@ a {
   border-bottom: 1px solid #575757 !important;
   border-radius: 0 !important;
 }
+
+.ant-btn::after {
+  display: none !important;
+}

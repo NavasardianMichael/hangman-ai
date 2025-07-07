@@ -10,3 +10,7 @@ export const isInWebView = () => {
     ua.includes('Messenger')
   )
 }
+
+export const normalizeSpaces = (str: string) => {
+  return str.trim().replace(/\s+/g, ' ')
+}

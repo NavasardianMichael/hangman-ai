@@ -66,6 +66,7 @@ export const Settings: StageComponent = ({ toNextPage }) => {
               onChange={onTimeLimitationChange}
               optionType="button"
               buttonStyle="solid"
+              disabled={isPending}
             />
           </Form.Item>
           {withTimeLimit && (

@@ -14,18 +14,21 @@ import { incrementCurrentPlayerPoint } from 'store/app/slice'
 import { Hangman } from './hangman'
 import styles from './styles.module.css'
 
+type ExtendedLetters = (typeof LETTERS)[number] | ' '
+
 export const Discovery: StageComponent = ({ toNextPage }) => {
   const dispatch = useAppDispatch()
   const { currentWord, mode, settings } = useAppSelector(selectAppOptions)
   const currentWordLettersArr = useMemo(() => {
-    return Array.from(currentWord.toUpperCase()) as (typeof LETTERS)[number][]
+    return Array.from(currentWord.toUpperCase()) as ExtendedLetters[number][]
   }, [currentWord])
+  console.log({ currentWordLettersArr })
 
   const [guessedLetters, setGuessedLetters] = useState<{
-    [key in (typeof LETTERS)[number]]?: boolean
+    [key in ExtendedLetters[number]]?: boolean
   }>({})
   const [wastedLetters, setWastedLetters] = useState<{
-    [key in (typeof LETTERS)[number]]?: boolean
+    [key in ExtendedLetters[number]]?: boolean
   }>({})
 
   const wastedLettersCount = useMemo(() => {
@@ -33,7 +36,7 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
   }, [wastedLetters])
 
   const isWordGuessed = useMemo(() => {
-    return currentWordLettersArr.every((letter) => guessedLetters[letter])
+    return currentWordLettersArr.filter((letter) => letter !== ' ').every((letter) => guessedLetters[letter])
   }, [currentWordLettersArr, guessedLetters])
 
   const countdownDeadline = useMemo(() => {
@@ -88,11 +91,14 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
         )}
       >
         {currentWordLettersArr.map((letter, i) => {
+          const isSpace = letter === ' '
+
           return (
             <span
               key={i}
               className={combineClassNames(
                 styles.cell,
+                isSpace && styles.space,
                 isWordGuessed || (!isWordGuessed && (guessedLetters[letter] || wastedLettersCount > 6))
                   ? styles.guessed
                   : undefined

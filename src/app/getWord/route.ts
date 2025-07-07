@@ -9,9 +9,9 @@ export async function POST(request: Request) {
     const { minLettersCount, category, difficulty } = payload
     const AIResponse = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
-      contents: `Ստեղծել մի հայերեն բառ, որը համապատասխանում է հետևյալ չափանիշներին: Բառը պետք է լինի առնվազն ${minLettersCount} տառից բաղկացած, պատկանի "${category}" կատեգորիային  և ունենա "${difficulty}" բարդության մակարդակ հետևյալներից՝ "${Object.values(
+      contents: `Ստեղծել հայերեն բառ, որը համապատասխանում է հետևյալ չափանիշներին: Բառը պետք է լինի առնվազն ${minLettersCount} տառից բաղկացած, պատկանի "${category}" կատեգորիային  և ունենա "${difficulty}" բարդության մակարդակ հետևյալներից՝ "${Object.values(
         DIFFICULTY_LEVELS
-      )}": Պատասխանիր միայն մեկ բառով, առանց լրացուցիչ բացատրությունների կամ մեկնաբանությունների։`,
+      )}": Պատասխանիր միայն մեկ բառով, եթե թեման չի ենթադրում երկու բառ, օրինակ՝ անուն ազգանուն, առանց լրացուցիչ բացատրությունների կամ մեկնաբանությունների։`,
     })
     const res = AIResponse.text
     return new Response(res)

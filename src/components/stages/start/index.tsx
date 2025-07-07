@@ -42,8 +42,8 @@ export const Start: StageComponent = ({ toNextPage }) => {
           name={PLAY_MODES.single}
           className={styles.startBtn}
         >
-          Մեկ հոգով
-          <span style={{ position: 'absolute', bottom: 8, left: '50%', fontSize: 6, transform: 'translateX(-50%)' }}>
+          <span style={{ transform: 'translateY(-4px)' }}>Մեկ հոգով</span>
+          <span style={{ position: 'absolute', bottom: 10, left: '50%', fontSize: 7, transform: 'translateX(-50%)' }}>
             արհեստական բանականության դեմ
           </span>
         </Button>

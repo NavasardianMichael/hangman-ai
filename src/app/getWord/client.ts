@@ -1,4 +1,5 @@
 // import { TAppSlice } from "store/app/types";
+import { normalizeSpaces } from 'helpers/utils/commons'
 import { GetWordAPI } from './types'
 
 // export const getAppData = (data: IDBObjectStoreParameters) => {
@@ -29,5 +30,5 @@ export const getWord = async (settings: GetWordAPI['payload']): Promise<GetWordA
     body: JSON.stringify(settings),
   })
   const data = await response.text()
-  return data
+  return normalizeSpaces(data)
 }
