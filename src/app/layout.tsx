@@ -1,4 +1,3 @@
-import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -30,11 +29,8 @@ export const metadata: Metadata = {
   verification: {
     google: 'otJjduk66KdJqUVQWUMGb3RCg7U5NGhdFLCDpcjP5_U',
   },
-  viewport: 'width=device-width, initial-scale=1.0',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
-  ],
+  // viewport: 'width=device-width, initial-scale=1.0',
+
   alternates: {
     canonical: 'https://hangman-ai-git-master-navasardianmichaels-projects.vercel.app',
   },
@@ -73,10 +69,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body>
-        <AntdRegistry>{children}</AntdRegistry>
-      </body>
+    <html lang="hy">
+      <body>{children}</body>
     </html>
   )
 }

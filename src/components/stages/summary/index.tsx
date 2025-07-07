@@ -12,6 +12,7 @@ import { selectAppOptions, selectGameSettings, selectIsSingleMode, selectPoints 
 import { setAppOptions } from 'store/app/slice'
 import { TAppSlice } from 'store/app/types'
 import styles from './styles.module.css'
+import { combineClassNames } from 'helpers/utils/styles'
 
 export const Summary: StageComponent = ({ toNextPage }) => {
   const dispatch = useAppDispatch()
@@ -43,6 +44,8 @@ export const Summary: StageComponent = ({ toNextPage }) => {
     toNextPage()
   }
 
+  const isLongText = !playerWon && !isSingleMode
+
   return (
     <div className={styles.summary}>
       <div className={styles.hints}>
@@ -57,14 +60,15 @@ export const Summary: StageComponent = ({ toNextPage }) => {
 
       {
         <CustomButton
-          style={{ fontSize: '.9rem' }}
+          // style={{ fontSize: '.9rem' }}
           onClick={handleNextPlayerComposes}
           disabled={isPending}
           loading={isPending}
+          className={combineClassNames(isLongText && styles.longTextButton)}
         >
-          {playerWon || isSingleMode
-            ? 'Շարունակել'
-            : `Բառ գրելու հերթը ${currentPlayer === PLAYERS.player1 ? 'երկրորդ' : 'առաջին'} խաղացողինն է`}
+          {isLongText
+            ? `Բառ գրելու հերթը ${currentPlayer === PLAYERS.player1 ? 'երկրորդ' : 'առաջին'} խաղացողինն է`
+            : 'Շարունակել'}
         </CustomButton>
       }
     </div>

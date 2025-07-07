@@ -6,6 +6,7 @@ import { selectAppOptions } from 'store/app/selectors'
 import { initialState, setAppOptions } from 'store/app/slice'
 import styles from './styles.module.css'
 import { useAppDispatch } from 'hooks/useAppDispatch'
+import { Audio } from 'components/shared/audio'
 
 export const End: StageComponent = () => {
   const dispatch = useAppDispatch()
@@ -14,8 +15,9 @@ export const End: StageComponent = () => {
   return (
     <div className={styles.end}>
       <h3>
-        🥇Շնորհավորում ենք🥇 <br />
         Խաղն ավարտվեց
+        <br />
+        🥇Շնորհավորում ենք🥇
       </h3>
       <p className={styles.winnerText}>
         🏆
@@ -32,6 +34,7 @@ export const End: StageComponent = () => {
       <CustomButton onClick={() => dispatch(setAppOptions(JSON.parse(JSON.stringify(initialState))))}>
         Խաղալ նորից
       </CustomButton>
+      <Audio deps={[playerWon]} src={'/win.mp3'} />
     </div>
   )
 }

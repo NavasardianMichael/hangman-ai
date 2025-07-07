@@ -1,6 +1,6 @@
 'use client'
 
-import { Checkbox, CheckboxProps, Flex, Form, InputNumber, Select, SelectProps } from 'antd'
+import { Flex, Form, InputNumber, Radio, RadioGroupProps, RadioProps, Select, SelectProps } from 'antd'
 import { getWord } from 'app/getWord/client'
 import { CustomButton } from 'components/shared/customButton'
 import { CATEGORIES_OPTIONS, DIFFICULTY_LEVELS_OPTIONS } from 'helpers/constants/app'
@@ -19,8 +19,8 @@ export const Settings: StageComponent = ({ toNextPage }) => {
   const isSingleMode = useAppSelector(selectIsSingleMode)
   const [isPending, setIsPending] = useState(false)
 
-  const onTimeLimitationChange: CheckboxProps['onChange'] = (e) => {
-    const withTimeLimit = e.target.checked
+  const onTimeLimitationChange: RadioProps['onChange'] = (e) => {
+    const withTimeLimit = e.target.value
     dispatch(setGameSettings({ timeLimit: 60, withTimeLimit }))
   }
 
@@ -47,13 +47,27 @@ export const Settings: StageComponent = ({ toNextPage }) => {
     return isPending || !minLettersCount || !category || !difficulty || pointsToWin < 1 || timeLimit < 1
   }, [isPending, minLettersCount, category, difficulty, pointsToWin, timeLimit])
 
+  const timeLimitationOptions: RadioGroupProps['options'] = useMemo(() => {
+    return [
+      { label: 'Ժամանակով', value: true },
+      { label: 'Անժամանակ', value: false },
+    ]
+  }, [])
+
   return (
     <div className={styles.settings}>
       <Form layout="vertical" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-        <Flex vertical gap={12}>
-          <Checkbox onChange={onTimeLimitationChange} checked={withTimeLimit} disabled={isPending}>
-            Ժամանակով
-          </Checkbox>
+        <Flex vertical gap={32}>
+          <Form.Item label="Ժամանակի սահմանափակում">
+            <Radio.Group
+              block
+              options={timeLimitationOptions}
+              value={withTimeLimit}
+              onChange={onTimeLimitationChange}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </Form.Item>
           {withTimeLimit && (
             <Form.Item label="Վայրկյան">
               <InputNumber
@@ -67,7 +81,7 @@ export const Settings: StageComponent = ({ toNextPage }) => {
             </Form.Item>
           )}
         </Flex>
-        <Form.Item label="Առավելագույն Միավոր">
+        <Form.Item label="Քանիսից է խաղը">
           <InputNumber
             min={1}
             max={999}
@@ -78,7 +92,7 @@ export const Settings: StageComponent = ({ toNextPage }) => {
             disabled={isPending}
           />
         </Form.Item>
-        <Form.Item label="Նվազագույն տառերի քանակ">
+        <Form.Item label="Նվազագույն տառերի քանակը">
           <InputNumber
             min={2}
             max={8}
@@ -90,7 +104,7 @@ export const Settings: StageComponent = ({ toNextPage }) => {
           />
         </Form.Item>
         {isSingleMode && (
-          <Form.Item label="Բառերի կատեգորիա">
+          <Form.Item label="Թեմա">
             <Select
               value={category}
               onChange={handleCategoryChange}

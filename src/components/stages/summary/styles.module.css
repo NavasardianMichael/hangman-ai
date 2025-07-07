@@ -1,7 +1,7 @@
 .summary {
   position: relative;
   display: flex;
-  min-height: 100dvh;
+  height: calc(100dvh - 60px);
 
   .hints {
     width: 100%;
@@ -31,5 +31,9 @@
     .hint {
       margin: 0;
     }
+  }
+
+  .longTextButton {
+    font-size: 0.7rem !important;
   }
 }

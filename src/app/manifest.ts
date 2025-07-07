@@ -11,14 +11,14 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'Հայտնի ԿԱԽԱՂԱՆ (HANGMAN) Խաղի հայկական տարբերակն արդեն հասանելի է առցանց',
     screenshots: [
       {
-        src: '/screenshot1.png',
-        type: 'image/png',
-        sizes: '381x866',
-      },
-      {
         src: '/screenshot2.png',
         type: 'image/png',
         sizes: '378x869',
+      },
+      {
+        src: '/screenshot1.png',
+        type: 'image/png',
+        sizes: '381x866',
       },
       {
         src: '/screenshot3.png',

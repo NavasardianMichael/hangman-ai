@@ -8,7 +8,7 @@ import { combineClassNames } from 'helpers/utils/styles'
 import styles from './styles.module.css'
 
 export const Breadcrumb: FC = () => {
-  const { currentStage, currentPlayer, mode } = useAppSelector(selectAppOptions)
+  const { currentStage, currentPlayer, mode, settings } = useAppSelector(selectAppOptions)
 
   const text = useMemo(() => {
     const parts = [
@@ -19,8 +19,8 @@ export const Breadcrumb: FC = () => {
           ? 'առաջին'
           : 'երկրորդ'
         : currentPlayer === PLAYERS.player1
-          ? 'երկրորդ'
-          : 'առաջին',
+        ? 'երկրորդ'
+        : 'առաջին',
       'խաղացողը',
     ]
 
@@ -36,9 +36,24 @@ export const Breadcrumb: FC = () => {
 
   if (STAGES_HIDE_BREADCRUMB.includes(currentStage) || mode === PLAY_MODES.single) return
 
+  const hasTimer = currentStage === GAME_STAGES.discovery && settings.withTimeLimit
+
   return (
-    <div className={styles.container}>
-      <p className={styles.breadcrumb}>{text}</p>
+    <div
+      className={styles.container}
+      style={{
+        textAlign: hasTimer ? 'left' : 'center',
+      }}
+    >
+      <p
+        className={styles.breadcrumb}
+        style={{
+          maxWidth: hasTimer ? 190 : 'auto',
+          marginLeft: hasTimer ? 10 : 0,
+        }}
+      >
+        {text}
+      </p>
       <p className={combineClassNames(styles.breadcrumb, styles.nextStage)}>{nextStageText}</p>
     </div>
   )

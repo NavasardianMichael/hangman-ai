@@ -28,13 +28,6 @@ export const Start: StageComponent = ({ toNextPage }) => {
         colorBgContainer: '#d3d3d32e',
         colorPrimaryBg: '#575757',
       },
-      components: {
-        Checkbox: {
-          colorBgContainer: '#d3d3d32e',
-          colorPrimary: 'red',
-          colorPrimaryBg: 'red',
-        },
-      },
     }
   }, [])
 

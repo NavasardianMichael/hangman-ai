@@ -8,7 +8,7 @@ import { Stages } from 'components/stages/Stages'
 import 'styles/commons.css'
 import 'styles/variables.css'
 import './app.css'
-import './index.css'
+import { AntdRegistry } from '@ant-design/nextjs-registry'
 
 export const App: FC = () => {
   const [isTouchDevice, setIsTouchDevice] = useState<boolean | null>(null)
@@ -20,25 +20,27 @@ export const App: FC = () => {
   if (isTouchDevice == null) return null
 
   return (
-    <StoreProvider>
-      <div className="app dark">
-        {isTouchDevice ? (
-          <div>
-            <Stages />
-            <Breadcrumb />
-            <Background />
-          </div>
-        ) : (
-          <div>
-            <Background blurred />
-            <h2 style={{ margin: 0, paddingTop: 40, textAlign: 'center' }}>
-              The App is Designed
-              <br /> only for Touch Devices
-            </h2>
-          </div>
-        )}
-      </div>
-    </StoreProvider>
+    <AntdRegistry>
+      <StoreProvider>
+        <div className="app dark">
+          {isTouchDevice ? (
+            <div>
+              <Stages />
+              <Breadcrumb />
+              <Background />
+            </div>
+          ) : (
+            <div>
+              <Background blurred />
+              <h2 style={{ margin: 0, paddingTop: 40, textAlign: 'center' }}>
+                The App is Designed
+                <br /> only for Touch Devices
+              </h2>
+            </div>
+          )}
+        </div>
+      </StoreProvider>
+    </AntdRegistry>
   )
 }
 
