@@ -63,6 +63,12 @@ export const DownloadAppBtn: FC = () => {
     return () => window.removeEventListener('appinstalled', setAppInstalled)
   }, [setAppInstalled])
 
+  useEffect(() => {
+    window.onbeforeunload = function () {
+      return confirm("Confirm refresh");
+    };
+  }, [])
+
   const downloadAppBtnClick = useCallback<MouseEventHandler>(async () => {
     if (!deferredPrompt) return
     // Show the install prompt

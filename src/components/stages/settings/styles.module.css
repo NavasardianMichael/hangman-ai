@@ -1,3 +1,7 @@
+.backBtn {
+  background-color: var(--secondary-color);
+}
+
 .settings {
   display: flex;
   height: calc(100dvh - 60px);

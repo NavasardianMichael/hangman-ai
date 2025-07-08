@@ -30,8 +30,6 @@ export const metadata: Metadata = {
   verification: {
     google: 'otJjduk66KdJqUVQWUMGb3RCg7U5NGhdFLCDpcjP5_U',
   },
-  // viewport: 'width=device-width, initial-scale=1.0',
-
   alternates: {
     canonical: 'https://hangman-ai-git-master-navasardianmichaels-projects.vercel.app',
   },
@@ -56,6 +54,7 @@ export const metadata: Metadata = {
       },
     ],
   },
+  creator: 'Միքայել Նավասարդյան',
   authors: [
     {
       name: 'Michael Navasardyan',
@@ -66,6 +65,7 @@ export const metadata: Metadata = {
       url: 'https://www.linkedin.com/in/michael-navasardyan/',
     },
   ],
+  category: 'game',
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -76,7 +76,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Script id="ga-init" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
-            function gtag(){window.dataLayer.push(arguments);}
+            function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-HJFMPR9938');
           `}
