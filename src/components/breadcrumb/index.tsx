@@ -48,7 +48,7 @@ export const Breadcrumb: FC = () => {
       <p
         className={styles.breadcrumb}
         style={{
-          maxWidth: hasTimer ? 190 : 'auto',
+          maxWidth: hasTimer ? 192 : 'auto',
           marginLeft: hasTimer ? 10 : 0,
         }}
       >

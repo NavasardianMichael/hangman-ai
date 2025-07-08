@@ -22,7 +22,6 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
   const currentWordLettersArr = useMemo(() => {
     return Array.from(currentWord.toUpperCase()) as ExtendedLetters[number][]
   }, [currentWord])
-  console.log({ currentWordLettersArr })
 
   const [guessedLetters, setGuessedLetters] = useState<{
     [key in ExtendedLetters[number]]?: boolean
@@ -64,7 +63,8 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
   }
 
   useEffect(() => {
-    if (isWordGuessed) dispatch(incrementCurrentPlayerPoint())
+    if (!isWordGuessed) return
+    dispatch(incrementCurrentPlayerPoint())
   }, [currentWordLettersArr, dispatch, guessedLetters, isWordGuessed])
 
   return (

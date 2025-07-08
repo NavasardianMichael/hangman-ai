@@ -8,14 +8,14 @@ import { StageComponent } from 'helpers/types/stage'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { MouseEventHandler, useMemo, useState } from 'react'
-import { selectGameSettings, selectIsSingleMode } from 'store/app/selectors'
+import { selectAppOptions, selectIsSingleMode } from 'store/app/selectors'
 import { setAppOptions, setGameSettings } from 'store/app/slice'
 import styles from './styles.module.css'
 
 export const Settings: StageComponent = ({ toNextPage }) => {
   const dispatch = useAppDispatch()
-  const { minLettersCount, category, difficulty, pointsToWin, timeLimit, withTimeLimit } =
-    useAppSelector(selectGameSettings)
+  const appState = useAppSelector(selectAppOptions)
+  const { minLettersCount, category, difficulty, pointsToWin, timeLimit, withTimeLimit } = appState.settings
   const isSingleMode = useAppSelector(selectIsSingleMode)
   const [isPending, setIsPending] = useState(false)
 

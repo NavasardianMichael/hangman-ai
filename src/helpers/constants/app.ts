@@ -169,3 +169,9 @@ export const LETTERS = [
 ] as const
 
 export const SPACE_CHAR = '⌴' as const
+
+export const STORE_VARS = {
+  DB_NAME: 'hangman-ai',
+  STORE_NAME: 'store',
+  PRIMARY_KEY: 'app',
+} as const
