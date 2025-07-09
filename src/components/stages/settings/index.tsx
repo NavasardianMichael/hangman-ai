@@ -57,8 +57,7 @@ export const Settings: StageComponent = ({ toNextPage }) => {
 
   return (
     <>
-
-      <Button type="primary" icon={<LeftOutlined />} style={{ position: 'absolute', left: 8, top: 8, width: 24, height: 24 }} className={styles.backBtn} onClick={() => dispatch(setAppOptions({ currentStage: GAME_STAGES.start }))} />
+      <Button type="primary" icon={<LeftOutlined />} style={{ position: 'absolute', left: 12, top: 12, width: 24, height: 24 }} className={styles.backBtn} onClick={() => dispatch(setAppOptions({ currentStage: GAME_STAGES.start }))} />
       <div className={styles.settings}>
         <Form layout="vertical" style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           <Flex vertical gap={20}>
@@ -80,7 +79,7 @@ export const Settings: StageComponent = ({ toNextPage }) => {
                   max={200}
                   value={timeLimit}
                   onChange={(value) => dispatch(setGameSettings({ timeLimit: value ?? 0 }))}
-                  style={{ background: 'transparent' }}
+                  style={{ background: 'transparent', width: '100%' }}
                   disabled={isPending}
                 />
               </Form.Item>

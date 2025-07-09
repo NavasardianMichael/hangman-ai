@@ -1,14 +1,22 @@
 'use client'
 
-import { FC, useMemo } from 'react'
-import { selectAppOptions } from 'store/app/selectors'
-import { useAppSelector } from 'hooks/useAppSelector'
-import { GAME_STAGES, PLAY_MODES, PLAYERS, STAGES_HIDE_BREADCRUMB } from 'helpers/constants/app'
+import { InfoCircleOutlined, RedoOutlined } from '@ant-design/icons'
+import { Button, Modal } from 'antd'
+import { GAME_STAGES, PLAY_MODES, PLAYERS, STAGES_HIDE_BREADCRUMB, STORE_VARS } from 'helpers/constants/app'
 import { combineClassNames } from 'helpers/utils/styles'
+import { useAppDispatch } from 'hooks/useAppDispatch'
+import { useAppSelector } from 'hooks/useAppSelector'
+import { FC, useMemo, useState } from 'react'
+import { clearIndexDB } from 'services/indexDB'
+import { selectAppOptions } from 'store/app/selectors'
+import { initialState, setAppOptions } from 'store/app/slice'
 import styles from './styles.module.css'
 
 export const Breadcrumb: FC = () => {
-  const { currentStage, currentPlayer, mode, settings } = useAppSelector(selectAppOptions)
+  const dispatch = useAppDispatch()
+  const { currentStage, currentPlayer, mode } = useAppSelector(selectAppOptions)
+  const [infoModalOpen, setInfoModalOpen] = useState(false)
+  const [restartGameModalOpen, setRestartGameModalOpen] = useState(false)
 
   const text = useMemo(() => {
     const parts = [
@@ -19,8 +27,8 @@ export const Breadcrumb: FC = () => {
           ? 'առաջին'
           : 'երկրորդ'
         : currentPlayer === PLAYERS.player1
-        ? 'երկրորդ'
-        : 'առաջին',
+          ? 'երկրորդ'
+          : 'առաջին',
       'խաղացողը',
     ]
 
@@ -28,33 +36,84 @@ export const Breadcrumb: FC = () => {
   }, [currentStage, currentPlayer])
 
   const nextStageText = useMemo(() => {
-    if (currentStage === GAME_STAGES.discovery) return
-    const parts = ['Հաջորդիվ բառը գուշակելու է', currentPlayer === PLAYERS.player1 ? 'երկրորդ' : 'առաջին', 'խաղացողը']
+
+    const parts = ['Հաջորդիվ բառը ', currentStage === GAME_STAGES.discovery ? 'գրելու է' : 'գուշակելու է', currentPlayer === PLAYERS.player1 ? 'երկրորդ' : 'առաջին', 'խաղացողը']
 
     return parts.join(' ')
   }, [currentStage, currentPlayer])
 
-  if (STAGES_HIDE_BREADCRUMB.includes(currentStage) || mode === PLAY_MODES.single) return
-
-  const hasTimer = currentStage === GAME_STAGES.discovery && settings.withTimeLimit
+  if (STAGES_HIDE_BREADCRUMB.includes(currentStage)) return
 
   return (
-    <div
-      className={styles.container}
-      style={{
-        textAlign: hasTimer ? 'left' : 'center',
-      }}
-    >
-      <p
-        className={styles.breadcrumb}
+    <>
+      <Button
+        icon={<RedoOutlined />}
+        type="primary"
         style={{
-          maxWidth: hasTimer ? 192 : 'auto',
-          marginLeft: hasTimer ? 10 : 0,
+          position: 'absolute',
+          right: 16,
+          top: 12,
+          width: 32,
+          height: 32,
+          backgroundColor: 'var(--secondary-color)',
         }}
+        onClick={() => setRestartGameModalOpen(true)}
+      />
+      <Modal
+        centered
+        open={restartGameModalOpen}
+        onOk={() => {
+          setRestartGameModalOpen(false)
+          clearIndexDB(STORE_VARS.DB_NAME, STORE_VARS.STORE_NAME, STORE_VARS.PRIMARY_KEY)
+          dispatch(setAppOptions(JSON.parse(JSON.stringify(initialState))))
+        }}
+        onCancel={() => setRestartGameModalOpen(false)}
+        okButtonProps={{ style: { backgroundColor: '#575757' } }}
+        okText="Այո"
+        cancelText="Ոչ"
       >
-        {text}
-      </p>
-      <p className={combineClassNames(styles.breadcrumb, styles.nextStage)}>{nextStageText}</p>
-    </div>
+        <p style={{ textAlign: 'center' }}>
+          Վստա՞հ եք, որ ցանկանում եք սկսել խաղը նորից։
+          <br />
+          <br />
+          Այս գործողությունը կջնջի ընթացիկ խաղի արդյունքները։
+        </p>
+      </Modal>
+
+
+      {
+        (currentStage !== GAME_STAGES.summary && mode !== PLAY_MODES.single) &&
+        <>
+          <Button
+            icon={<InfoCircleOutlined />}
+            type="primary"
+            style={{
+              position: 'absolute',
+              right: 62,
+              top: 12,
+
+              width: 32,
+              height: 32,
+              backgroundColor: 'var(--secondary-color)',
+            }}
+            onClick={() => setInfoModalOpen(true)}
+          />
+          <Modal
+            centered
+            open={infoModalOpen}
+            onOk={() => setInfoModalOpen(false)}
+            onCancel={() => setInfoModalOpen(false)}
+            okButtonProps={{ style: { display: 'none' } }}
+            cancelButtonProps={{ style: { display: 'none' } }}
+          >
+            <div className={styles.container}>
+              <p className={styles.breadcrumb}>{text}</p>
+              <p className={combineClassNames(styles.breadcrumb, styles.nextStage)}>{nextStageText}</p>
+            </div>
+          </Modal>
+        </>
+      }
+
+    </>
   )
 }

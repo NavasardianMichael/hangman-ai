@@ -50,3 +50,18 @@ export async function getIndexDB<T>(dbName: string, storeName: string, key: stri
     request.onerror = () => reject(request.error)
   })
 }
+
+export async function clearIndexDB(
+  dbName: string,
+  storeName: string,
+  key: string,
+): Promise<void> {
+  const db = await new Promise<IDBDatabase>((resolve, reject) => {
+    const request = indexedDB.open(dbName, 1)
+    request.onsuccess = () => resolve(request.result)
+    request.onerror = () => reject(request.error)
+  })
+
+  const transaction = db.transaction([storeName], 'readwrite')
+  transaction.objectStore(storeName).delete(key)
+}

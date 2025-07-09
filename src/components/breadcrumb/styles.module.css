@@ -1,9 +1,6 @@
 .container {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-
+  text-align: center;
+  padding: 0.7rem;
   .breadcrumb {
     margin-top: 0.45rem;
     margin-bottom: 0;

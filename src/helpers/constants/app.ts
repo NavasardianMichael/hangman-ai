@@ -81,7 +81,7 @@ export const STAGES_WITH_CLEAR_BACKGROUND: (keyof typeof GAME_STAGES)[] = [
 
 export const STAGES_HIDE_BREADCRUMB: (keyof typeof GAME_STAGES)[] = [
   GAME_STAGES.start,
-  GAME_STAGES.summary,
+  // GAME_STAGES.summary,
   GAME_STAGES.end,
   GAME_STAGES.settings,
 ]

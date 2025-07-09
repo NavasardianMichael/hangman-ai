@@ -157,10 +157,19 @@ a {
 }
 
 .ant-select-dropdown .ant-select-item {
-  border-bottom: 1px solid #575757 !important;
+  /* border-bottom: 1px solid #575757 !important; */
+  box-shadow: 0 1px 1px 0px #959da533;
   border-radius: 0 !important;
 }
 
 .ant-btn::after {
   display: none !important;
+}
+
+.ant-col.ant-form-item-control {
+  background-color: transparent !important;
+}
+
+.ant-select-focused .ant-select-selector {
+  box-shadow: 0 5px 0px #5757572f;
 }

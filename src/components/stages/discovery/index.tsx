@@ -72,11 +72,9 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
       {settings.withTimeLimit && settings.timeLimit > 0 && (
         <Statistic.Timer
           style={{
-            textAlign: 'center',
-            position: 'absolute',
-            top: 0,
-            right: 10,
             fontVariantNumeric: 'tabular-nums',
+            marginLeft: 16,
+            marginTop: 4
           }}
           type="countdown"
           value={countdownDeadline}

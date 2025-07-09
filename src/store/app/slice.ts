@@ -32,7 +32,7 @@ export const appSlice = createSlice({
         ...state,
         ...payload,
       }
-      // setIndexDB(STORE_VARS.DB_NAME, STORE_VARS.STORE_NAME, STORE_VARS.PRIMARY_KEY, newState)
+      setIndexDB(STORE_VARS.DB_NAME, STORE_VARS.STORE_NAME, STORE_VARS.PRIMARY_KEY, newState)
       return newState
     },
     setGameSettings: (state, { payload }: PayloadAction<TAppActionPayloads['setGameSettings']>) => {
@@ -49,7 +49,7 @@ export const appSlice = createSlice({
       }
       const opponent = state.currentPlayer === PLAYERS.player1 ? PLAYERS.player2 : PLAYERS.player1
       state.points[opponent] += 1
-      // setIndexDB(STORE_VARS.DB_NAME, STORE_VARS.STORE_NAME, STORE_VARS.PRIMARY_KEY, state)
+      setIndexDB(STORE_VARS.DB_NAME, STORE_VARS.STORE_NAME, STORE_VARS.PRIMARY_KEY, state)
     },
   },
 })
