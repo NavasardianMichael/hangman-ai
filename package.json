@@ -11,13 +11,11 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "next lint --fix",
-      "git add"
+    "*.{js,ts,jsx,tsx}": [
+      "next lint --fix"
     ],
     "*.{json,md,css,scss}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "dependencies": {
