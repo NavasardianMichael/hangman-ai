@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&family=Noto+Serif+Armenian:wght@400;500;600;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&family=Noto+Serif+Armenian:wght@400;500;600;700&display=swap');
 
 @font-face {
   font-family: 'Kotayk';
@@ -15,12 +15,6 @@
 }
 
 @font-face {
-  font-family: 'Oldtimer';
-  src: url('/fonts/fonter.am_oldtimer/Oldtimer.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
   font-family: 'NasaFont';
   src: url('/fonts/fonter.am_nasa-font/TTF/NasaFont.ttf') format('truetype');
   font-weight: normal;
@@ -35,6 +29,13 @@
 @font-face {
   font-family: 'Adamathuz';
   src: url('/fonts/fonter.am_adamathuz/Adamathuz-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+} */
+
+@font-face {
+  font-family: 'Oldtimer';
+  src: url('/Oldtimer.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -171,5 +172,9 @@ a {
 }
 
 .ant-select-focused .ant-select-selector {
+  box-shadow: 0 5px 0px #5757572f;
+}
+
+.ant-input-number-outlined:focus-within {
   box-shadow: 0 5px 0px #5757572f;
 }

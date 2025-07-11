@@ -2,11 +2,11 @@
 
 import { MouseEventHandler, useMemo, useRef } from 'react'
 import { Button, ConfigProvider, ThemeConfig } from 'antd'
-import { StageComponent } from 'helpers/types/stage'
-import { PLAY_MODES } from 'helpers/constants/app'
 import { setAppOptions } from 'store/app/slice'
-import { useAppDispatch } from 'hooks/useAppDispatch'
 import { TAppSlice } from 'store/app/types'
+import { useAppDispatch } from 'hooks/useAppDispatch'
+import { PLAY_MODES } from 'helpers/constants/app'
+import { StageComponent } from 'helpers/types/stage'
 import { DownloadAppBtn } from 'components/downloadAppBtn'
 import styles from './styles.module.css'
 
@@ -42,8 +42,8 @@ export const Start: StageComponent = ({ toNextPage }) => {
           name={PLAY_MODES.single}
           className={styles.startBtn}
         >
-          <span style={{ transform: 'translateY(-4px)' }}>Մեկ հոգով</span>
-          <span style={{ position: 'absolute', bottom: 10, left: '50%', fontSize: 7, transform: 'translateX(-50%)' }}>
+          <span style={{ transform: 'translateY(-3px)' }}>Մեկ հոգով</span>
+          <span style={{ position: 'absolute', bottom: 10, left: '50%', fontSize: 8, transform: 'translateX(-50%)' }}>
             արհեստական բանականության դեմ
           </span>
         </Button>

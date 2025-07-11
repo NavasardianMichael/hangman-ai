@@ -4,7 +4,6 @@
   .breadcrumb {
     margin-top: 0.45rem;
     margin-bottom: 0;
-    font-size: 0.8rem;
     font-weight: 500;
 
     @media (orientation: landscape) {
@@ -13,8 +12,7 @@
     }
 
     &.nextStage {
-      margin-top: 0.1rem;
-      font-size: 0.6rem;
+      margin-top: 1rem;
     }
   }
 }

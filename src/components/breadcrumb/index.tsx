@@ -1,15 +1,15 @@
 'use client'
 
+import { FC, useMemo, useState } from 'react'
 import { InfoCircleOutlined, RedoOutlined } from '@ant-design/icons'
 import { Button, Modal } from 'antd'
-import { GAME_STAGES, PLAY_MODES, PLAYERS, STAGES_HIDE_BREADCRUMB, STORE_VARS } from 'helpers/constants/app'
-import { combineClassNames } from 'helpers/utils/styles'
-import { useAppDispatch } from 'hooks/useAppDispatch'
-import { FC, useMemo, useState } from 'react'
-import { useAppSelector } from 'hooks/useAppSelector'
 import { clearIndexDB } from 'services/indexDB'
 import { selectAppOptions } from 'store/app/selectors'
 import { initialState, setAppOptions } from 'store/app/slice'
+import { useAppDispatch } from 'hooks/useAppDispatch'
+import { useAppSelector } from 'hooks/useAppSelector'
+import { GAME_STAGES, PLAY_MODES, PLAYERS, STAGES_HIDE_BREADCRUMB, STORE_VARS } from 'helpers/constants/app'
+import { combineClassNames } from 'helpers/utils/styles'
 import styles from './styles.module.css'
 
 export const Breadcrumb: FC = () => {
@@ -36,8 +36,12 @@ export const Breadcrumb: FC = () => {
   }, [currentStage, currentPlayer])
 
   const nextStageText = useMemo(() => {
-
-    const parts = ['Հաջորդիվ բառը ', currentStage === GAME_STAGES.discovery ? 'գրելու է' : 'գուշակելու է', currentPlayer === PLAYERS.player1 ? 'երկրորդ' : 'առաջին', 'խաղացողը']
+    const parts = [
+      'Հաջորդիվ բառը ',
+      currentStage === GAME_STAGES.discovery ? 'գրելու է' : 'գուշակելու է',
+      currentPlayer === PLAYERS.player1 ? 'երկրորդ' : 'առաջին',
+      'խաղացողը',
+    ]
 
     return parts.join(' ')
   }, [currentStage, currentPlayer])
@@ -48,7 +52,7 @@ export const Breadcrumb: FC = () => {
     <>
       <Button
         icon={<RedoOutlined />}
-        type="primary"
+        type='primary'
         style={{
           position: 'absolute',
           right: 16,
@@ -68,9 +72,10 @@ export const Breadcrumb: FC = () => {
           dispatch(setAppOptions(JSON.parse(JSON.stringify(initialState))))
         }}
         onCancel={() => setRestartGameModalOpen(false)}
-        okButtonProps={{ style: { backgroundColor: '#575757' } }}
-        okText="Այո"
-        cancelText="Ոչ"
+        okButtonProps={{ style: { backgroundColor: '#575757', width: 100 } }}
+        cancelButtonProps={{ style: { width: 100 } }}
+        okText='Այո'
+        cancelText='Ոչ'
       >
         <p style={{ textAlign: 'center' }}>
           Վստա՞հ եք, որ ցանկանում եք սկսել խաղը նորից։
@@ -80,18 +85,15 @@ export const Breadcrumb: FC = () => {
         </p>
       </Modal>
 
-
-      {
-        (currentStage !== GAME_STAGES.summary && mode !== PLAY_MODES.single) &&
+      {currentStage !== GAME_STAGES.summary && mode !== PLAY_MODES.single && (
         <>
           <Button
             icon={<InfoCircleOutlined />}
-            type="primary"
+            type='primary'
             style={{
               position: 'absolute',
               right: 62,
               top: 12,
-
               width: 32,
               height: 32,
               backgroundColor: 'var(--secondary-color)',
@@ -112,8 +114,7 @@ export const Breadcrumb: FC = () => {
             </div>
           </Modal>
         </>
-      }
-
+      )}
     </>
   )
 }

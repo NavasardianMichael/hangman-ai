@@ -7,7 +7,7 @@
     justify-content: center;
     gap: 0.5rem;
     margin-top: 8rem;
-    padding: 2rem 1rem;
+    padding: 1rem;
     font-size: 1.6rem;
     font-weight: bold;
     user-select: none;
@@ -32,10 +32,10 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.2rem;
-    padding: 2rem 1rem;
+    padding: 1rem;
     position: fixed;
     left: 0;
-    bottom: 10%;
+    bottom: calc(32px + 30px);
     color: var(--primary-color);
     font-weight: 500;
     font-size: 1.25rem;

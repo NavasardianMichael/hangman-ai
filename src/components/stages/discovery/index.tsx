@@ -107,10 +107,10 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
           )
         })}
       </div>
-      <Audio deps={[wastedLettersCount, currentWordLettersArr]} src={'/scribble.mp3'} />
-      <Audio deps={[isWordGuessed]} src={'/win.mp3'} />
-      <Audio deps={[!isWordGuessed && wastedLettersCount > 6]} src={'/loss.mp3'} />
-      <Audio deps={[Object.values(guessedLetters).length]} src={'/correct.mp3'} />
+      <Audio deps={[wastedLettersCount, currentWordLettersArr]} src='/scribble.mp3' />
+      <Audio deps={[isWordGuessed]} src='/win.mp3' />
+      <Audio deps={[!isWordGuessed && wastedLettersCount > 6]} src='/loss.mp3' />
+      <Audio deps={[Object.values(guessedLetters).length]} src='/correct.mp3' />
       <Hangman step={wastedLettersCount} />
       <div
         className={combineClassNames(

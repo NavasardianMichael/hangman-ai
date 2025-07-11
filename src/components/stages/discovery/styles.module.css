@@ -5,8 +5,8 @@
     justify-content: center;
     gap: 0.5rem;
     text-align: center;
-    /* margin-top: 3rem; */
-    padding: 2rem 1rem;
+    margin-top: 3rem;
+    padding: 1rem;
     font-size: 1.5rem;
     font-weight: 600;
 
@@ -39,13 +39,13 @@
     }
 
     &.success {
-      .cell {
+      .cell:not(.space) {
         background-color: rgba(30, 221, 30, 0.4);
       }
     }
 
     &.fail {
-      .cell {
+      .cell:not(.space) {
         background-color: rgba(255, 0, 0, 0.3);
       }
     }
@@ -55,10 +55,10 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.2rem;
-    padding: 2rem 1rem;
+    padding: 1rem;
     position: fixed;
     left: 0;
-    bottom: 0;
+    bottom: calc(32px + 30px);
     color: var(--primary-color);
     font-weight: 500;
     font-size: 1.25rem;
