@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     google: 'otJjduk66KdJqUVQWUMGb3RCg7U5NGhdFLCDpcjP5_U',
   },
   alternates: {
-    canonical: 'https://hangman-ai-git-master-navasardianmichaels-projects.vercel.app',
+    canonical: 'https://hangman-ai-ivory.vercel.app/',
   },
   icons: {
     icon: [
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     apple: [{ url: '/favicon.svg', type: 'image/png' }],
   },
   openGraph: {
-    url: 'https://hangman-ai-git-master-navasardianmichaels-projects.vercel.app',
+    url: 'https://hangman-ai-ivory.vercel.app/',
     type: 'website',
     title: 'Կախաղան | Hangman',
     description:
