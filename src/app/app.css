@@ -2,39 +2,39 @@
 
 @font-face {
   font-family: 'Kotayk';
-  src: url('../assets/fonts/fonter.am_kotayk/Kotayk-Regular.ttf') format('truetype');
+  src: url('/fonts/fonter.am_kotayk/Kotayk-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Kotayk';
-  src: url('../assets/fonts/fonter.am_kotayk/Kotayk-Italic.ttf') format('truetype');
+  src: url('/fonts/fonter.am_kotayk/Kotayk-Italic.ttf') format('truetype');
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
   font-family: 'Oldtimer';
-  src: url('../assets/fonts/fonter.am_oldtimer/Oldtimer.ttf') format('truetype');
+  src: url('/fonts/fonter.am_oldtimer/Oldtimer.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'NasaFont';
-  src: url('../assets/fonts/fonter.am_nasa-font/TTF/NasaFont.ttf') format('truetype');
+  src: url('/fonts/fonter.am_nasa-font/TTF/NasaFont.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'BraindYerevan';
-  src: url('../assets/fonts/fonter.am_braind-yerevan/BraindYerevan.otf') format('truetype');
+  src: url('/fonts/fonter.am_braind-yerevan/BraindYerevan.otf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Adamathuz';
-  src: url('../assets/fonts/fonter.am_adamathuz/Adamathuz-Bold.ttf') format('truetype');
+  src: url('/fonts/fonter.am_adamathuz/Adamathuz-Bold.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }

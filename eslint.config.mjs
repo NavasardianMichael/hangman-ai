@@ -1,6 +1,7 @@
 import { FlatCompat } from '@eslint/eslintrc'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -12,9 +13,43 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
+    plugins: {
+      'simple-import-sort': simpleImportSort,
+    },
     rules: {
-      'react-hooks/exhaustive-deps': 'warn', // This rule checks for missing dependencies
-      'react-hooks/rules-of-hooks': 'error', // This rule checks for proper hook usage
+      'react-hooks/exhaustive-deps': 'warn',
+      'react-hooks/rules-of-hooks': 'error',
+      'simple-import-sort/imports': [
+        'error',
+        {
+          groups: [
+            [
+              '^react',
+              '^@?\\w',
+              '^assets/',
+              '^test/',
+              '^configs/',
+              '^services/',
+              '^routes/',
+              '^api/',
+              '^store/',
+              '^contexts/',
+              '^hooks/',
+              '^types/',
+              '^interfaces/',
+              '^constants/',
+              '^helpers/',
+              '^utils/',
+              '^components/',
+              '^styles/',
+              '^\\.',
+              '^\\.\\.',
+              '\\.css',
+            ],
+          ],
+        },
+      ],
+      'simple-import-sort/exports': 'error',
     },
   },
 ]

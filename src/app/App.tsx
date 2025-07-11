@@ -1,15 +1,15 @@
 'use client'
 
+import { FC, useEffect, useState } from 'react'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
+import { StoreProvider } from 'store/Provider'
 import { Background } from 'components/background'
 import { Breadcrumb } from 'components/breadcrumb'
 import { Stages } from 'components/stages/Stages'
-import { FC, useEffect, useState } from 'react'
-import { StoreProvider } from 'store/Provider'
-import 'styles/commons.css'
-import 'styles/variables.css'
 import IndexDbProvider from '../services/IndexDbProvider'
+import 'styles/variables.css'
 import './app.css'
+import 'styles/commons.css'
 
 export const App: FC = () => {
   const [isTouchDevice, setIsTouchDevice] = useState<boolean | null>(null)
@@ -24,7 +24,7 @@ export const App: FC = () => {
     <AntdRegistry>
       <StoreProvider>
         <IndexDbProvider>
-          <div className="app dark">
+          <div className='app dark'>
             {isTouchDevice ? (
               <div>
                 <Stages />

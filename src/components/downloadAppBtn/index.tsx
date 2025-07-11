@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, MouseEventHandler, createContext, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { createContext, FC, MouseEventHandler, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { DownloadOutlined } from '@ant-design/icons'
 import type { NotificationArgsProps } from 'antd'
 import { Button, Carousel, Modal, notification } from 'antd'
@@ -86,7 +86,7 @@ export const DownloadAppBtn: FC = () => {
             {() => {
               return (
                 <Button
-                  type="primary"
+                  type='primary'
                   style={{ width: '100%' }}
                   onClick={downloadAppBtnClick}
                   icon={<DownloadOutlined />}
@@ -125,7 +125,7 @@ export const DownloadAppBtn: FC = () => {
     <>
       {
         <Modal
-          title="Ինչպե՞ս ներբեռնել հավելվածը"
+          title='Ինչպե՞ս ներբեռնել հավելվածը'
           centered
           width={'80%'}
           open={showIosDownloadAppHintModal}
@@ -138,25 +138,25 @@ export const DownloadAppBtn: FC = () => {
           }}
         >
           <div style={{ maxHeight: '80vh', boxSizing: 'border-box' }}>
-            <Carousel autoplay arrows dots dotPosition="bottom">
+            <Carousel autoplay arrows dots dotPosition='bottom'>
               <div>
                 <Image
                   src={Hint1Img}
-                  alt="Hint 1"
+                  alt='Hint 1'
                   style={{ margin: 'auto', maxWidth: '100%', maxHeight: '80vh', objectFit: 'cover' }}
                 />
               </div>
               <div>
                 <Image
                   src={Hint2Img}
-                  alt="Hint 2"
+                  alt='Hint 2'
                   style={{ margin: 'auto', maxWidth: '100%', maxHeight: '80vh', objectFit: 'cover' }}
                 />
               </div>
               <div>
                 <Image
                   src={Hint3Img}
-                  alt="Hint 3"
+                  alt='Hint 3'
                   style={{ margin: 'auto', maxWidth: '100%', maxHeight: '80vh', objectFit: 'cover' }}
                 />
               </div>

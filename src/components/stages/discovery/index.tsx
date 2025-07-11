@@ -1,16 +1,16 @@
 'use client'
 
+import { MouseEventHandler, useEffect, useMemo, useState } from 'react'
 import { Statistic } from 'antd'
-import { Audio } from 'components/shared/audio'
-import { CustomButton } from 'components/shared/customButton'
+import { selectAppOptions } from 'store/app/selectors'
+import { incrementCurrentPlayerPoint } from 'store/app/slice'
+import { useAppDispatch } from 'hooks/useAppDispatch'
+import { useAppSelector } from 'hooks/useAppSelector'
 import { LETTERS, PLAY_MODES } from 'helpers/constants/app'
 import { StageComponent } from 'helpers/types/stage'
 import { combineClassNames } from 'helpers/utils/styles'
-import { useAppDispatch } from 'hooks/useAppDispatch'
-import { useAppSelector } from 'hooks/useAppSelector'
-import { MouseEventHandler, useEffect, useMemo, useState } from 'react'
-import { selectAppOptions } from 'store/app/selectors'
-import { incrementCurrentPlayerPoint } from 'store/app/slice'
+import { Audio } from 'components/shared/audio'
+import { CustomButton } from 'components/shared/customButton'
 import { Hangman } from './hangman'
 import styles from './styles.module.css'
 
@@ -74,9 +74,9 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
           style={{
             fontVariantNumeric: 'tabular-nums',
             marginLeft: 16,
-            marginTop: 4
+            marginTop: 4,
           }}
-          type="countdown"
+          type='countdown'
           value={countdownDeadline}
           onFinish={() => toNextPage()}
         />

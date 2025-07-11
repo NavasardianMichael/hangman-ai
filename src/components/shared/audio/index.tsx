@@ -20,7 +20,13 @@ export const Audio: FC<TProps> = ({ deps, src }) => {
 
     if (deps.every((dep) => !dep)) return
 
-    audio.play()
+    // Handle the promise returned by play() to catch the AbortError
+    audio.play().catch((error) => {
+      // Ignore AbortError as it's expected when cleanup pauses before playback starts
+      if (error.name !== 'AbortError') {
+        console.error('Audio playback failed:', error)
+      }
+    })
 
     return () => {
       if (!audio) return

@@ -35,10 +35,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/icon-192x192.png', sizes: '16x16', type: 'image/png' },
+      { url: '/images/favicon.svg', type: 'image/svg+xml' },
+      { url: '/images/icon-192x192.png', sizes: '16x16', type: 'image/png' },
     ],
-    apple: [{ url: '/favicon.svg', type: 'image/png' }],
+    apple: [{ url: '/images/favicon.svg', type: 'image/png' }],
   },
   openGraph: {
     url: 'https://hangman-ai-ivory.vercel.app/',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     siteName: 'Կախաղան | Hangman',
     images: [
       {
-        url: '/icon-192x192.png',
+        url: '/images/icon-192x192.png',
         alt: 'Կախաղան - Armenian Hangman Game',
       },
     ],
@@ -70,9 +70,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="hy">
+    <html lang='hy'>
       <head>
-        <Script id="gtm-script" strategy="beforeInteractive">
+        <Script id='gtm-script' strategy='beforeInteractive'>
           {`
     (function(w,d,s,l,i){
       w[l]=w[l]||[];
@@ -87,8 +87,17 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   `}
         </Script>
       </head>
-      <body><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NFWCRW7P"
-        height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}></iframe></noscript>{children}</body>
+      <body>
+        <noscript>
+          <iframe
+            src='https://www.googletagmanager.com/ns.html?id=GTM-NFWCRW7P'
+            height='0'
+            width='0'
+            style={{ display: 'none', visibility: 'hidden' }}
+          ></iframe>
+        </noscript>
+        {children}
+      </body>
     </html>
   )
 }

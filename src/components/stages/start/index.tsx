@@ -2,11 +2,11 @@
 
 import { MouseEventHandler, useMemo, useRef } from 'react'
 import { Button, ConfigProvider, ThemeConfig } from 'antd'
-import { setAppOptions } from 'store/app/slice'
-import { TAppSlice } from 'store/app/types'
-import { useAppDispatch } from 'hooks/useAppDispatch'
 import { StageComponent } from 'helpers/types/stage'
 import { PLAY_MODES } from 'helpers/constants/app'
+import { setAppOptions } from 'store/app/slice'
+import { useAppDispatch } from 'hooks/useAppDispatch'
+import { TAppSlice } from 'store/app/types'
 import { DownloadAppBtn } from 'components/downloadAppBtn'
 import styles from './styles.module.css'
 
@@ -37,7 +37,7 @@ export const Start: StageComponent = ({ toNextPage }) => {
         {!isAppInstalledRef.current && <DownloadAppBtn />}
         <Button
           style={{ position: 'relative' }}
-          type="primary"
+          type='primary'
           onClick={handleClick}
           name={PLAY_MODES.single}
           className={styles.startBtn}
@@ -47,7 +47,7 @@ export const Start: StageComponent = ({ toNextPage }) => {
             արհեստական բանականության դեմ
           </span>
         </Button>
-        <Button type="primary" onClick={handleClick} name={PLAY_MODES.multiplayer} className={styles.startBtn}>
+        <Button type='primary' onClick={handleClick} name={PLAY_MODES.multiplayer} className={styles.startBtn}>
           Երկու հոգով
         </Button>
       </div>
