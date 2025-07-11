@@ -1,17 +1,17 @@
 'use client'
 
+import { MouseEventHandler, useMemo, useState } from 'react'
+import { LeftOutlined } from '@ant-design/icons'
 import { Button, Flex, Form, InputNumber, Radio, RadioGroupProps, RadioProps, Select, SelectProps } from 'antd'
 import { getWord } from 'app/getWord/client'
-import { CustomButton } from 'components/shared/customButton'
-import { CATEGORIES_OPTIONS, DIFFICULTY_LEVELS_OPTIONS, GAME_STAGES } from 'helpers/constants/app'
-import { StageComponent } from 'helpers/types/stage'
-import { useAppDispatch } from 'hooks/useAppDispatch'
-import { useAppSelector } from 'hooks/useAppSelector'
-import { MouseEventHandler, useMemo, useState } from 'react'
 import { selectAppOptions, selectIsSingleMode } from 'store/app/selectors'
 import { setAppOptions, setGameSettings } from 'store/app/slice'
+import { useAppDispatch } from 'hooks/useAppDispatch'
+import { useAppSelector } from 'hooks/useAppSelector'
+import { CATEGORIES_OPTIONS, DIFFICULTY_LEVELS_OPTIONS, GAME_STAGES } from 'helpers/constants/app'
+import { StageComponent } from 'helpers/types/stage'
+import { CustomButton } from 'components/shared/customButton'
 import styles from './styles.module.css'
-import { LeftOutlined } from '@ant-design/icons'
 
 export const Settings: StageComponent = ({ toNextPage }) => {
   const dispatch = useAppDispatch()

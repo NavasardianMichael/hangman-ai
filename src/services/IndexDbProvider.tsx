@@ -1,11 +1,11 @@
 'use client'
 
-import { STORE_VARS } from 'helpers/constants/app'
-import { useAppDispatch } from 'hooks/useAppDispatch'
 import { FC, PropsWithChildren, useEffect, useState } from 'react'
 import { getIndexDB } from 'services/indexDB'
 import { setAppOptions } from 'store/app/slice'
 import { TAppSlice } from 'store/app/types'
+import { useAppDispatch } from 'hooks/useAppDispatch'
+import { STORE_VARS } from 'helpers/constants/app'
 
 export const IndexDbProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isPending, setIsPending] = useState(false)

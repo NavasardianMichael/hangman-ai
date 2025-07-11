@@ -1,12 +1,12 @@
-import { CustomButton } from 'components/shared/customButton'
-import { PLAY_MODES, PLAYERS } from 'helpers/constants/app'
-import { StageComponent } from 'helpers/types/stage'
-import { useAppSelector } from 'hooks/useAppSelector'
 import { selectAppOptions } from 'store/app/selectors'
 import { initialState, setAppOptions } from 'store/app/slice'
-import styles from './styles.module.css'
 import { useAppDispatch } from 'hooks/useAppDispatch'
+import { useAppSelector } from 'hooks/useAppSelector'
+import { PLAY_MODES, PLAYERS } from 'helpers/constants/app'
+import { StageComponent } from 'helpers/types/stage'
 import { Audio } from 'components/shared/audio'
+import { CustomButton } from 'components/shared/customButton'
+import styles from './styles.module.css'
 
 export const End: StageComponent = () => {
   const dispatch = useAppDispatch()

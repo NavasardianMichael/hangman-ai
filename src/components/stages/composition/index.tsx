@@ -5,12 +5,12 @@ import { selectGameSettings } from 'store/app/selectors'
 import { setAppOptions } from 'store/app/slice'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
-import { StageComponent } from 'helpers/types/stage'
 import { LETTERS, SPACE_CHAR } from 'helpers/constants/app'
+import { StageComponent } from 'helpers/types/stage'
+import { normalizeSpaces } from 'helpers/utils/commons'
 import { combineClassNames } from 'helpers/utils/styles'
 import { CustomButton } from 'components/shared/customButton'
 import styles from './styles.module.css'
-import { normalizeSpaces } from 'helpers/utils/commons'
 
 export const Composition: StageComponent = ({ toNextPage }) => {
   const dispatch = useAppDispatch()

@@ -1,7 +1,7 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { CATEGORIES, DIFFICULTY_LEVELS, GAME_STAGES, PLAYERS, PLAY_MODES, STORE_VARS } from 'helpers/constants/app'
-import { TAppActionPayloads, TAppSlice } from './types'
+import { createSlice,PayloadAction } from '@reduxjs/toolkit'
 import { setIndexDB } from 'services/indexDB'
+import { CATEGORIES, DIFFICULTY_LEVELS, GAME_STAGES, PLAY_MODES, PLAYERS, STORE_VARS } from 'helpers/constants/app'
+import { TAppActionPayloads, TAppSlice } from './types'
 
 export const initialState: TAppSlice = {
   mode: null,

@@ -1,18 +1,18 @@
 'use client'
 
-import { getWord } from 'app/getWord/client'
-import { CustomButton } from 'components/shared/customButton'
-import { PLAYERS } from 'helpers/constants/app'
-import { StageComponent } from 'helpers/types/stage'
-import { useAppDispatch } from 'hooks/useAppDispatch'
-import { useAppSelector } from 'hooks/useAppSelector'
-import { useOpponent } from 'hooks/useOpponent'
 import { useState } from 'react'
+import { getWord } from 'app/getWord/client'
 import { selectAppOptions, selectGameSettings, selectIsSingleMode, selectPoints } from 'store/app/selectors'
 import { setAppOptions } from 'store/app/slice'
 import { TAppSlice } from 'store/app/types'
-import styles from './styles.module.css'
+import { useAppDispatch } from 'hooks/useAppDispatch'
+import { useAppSelector } from 'hooks/useAppSelector'
+import { useOpponent } from 'hooks/useOpponent'
+import { PLAYERS } from 'helpers/constants/app'
+import { StageComponent } from 'helpers/types/stage'
 import { combineClassNames } from 'helpers/utils/styles'
+import { CustomButton } from 'components/shared/customButton'
+import styles from './styles.module.css'
 
 export const Summary: StageComponent = ({ toNextPage }) => {
   const dispatch = useAppDispatch()

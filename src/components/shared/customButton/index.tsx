@@ -1,7 +1,7 @@
-import { Button, ButtonProps } from 'antd'
 import { DetailedHTMLProps, FC } from 'react'
-import styles from './styles.module.css'
+import { Button, ButtonProps } from 'antd'
 import { combineClassNames } from 'helpers/utils/styles'
+import styles from './styles.module.css'
 
 type TProps = DetailedHTMLProps<ButtonProps, HTMLButtonElement>
 

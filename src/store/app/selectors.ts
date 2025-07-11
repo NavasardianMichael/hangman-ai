@@ -1,5 +1,5 @@
-import { PLAY_MODES } from 'helpers/constants/app'
 import { TRootState } from 'store/main'
+import { PLAY_MODES } from 'helpers/constants/app'
 
 export const selectAppOptions = (state: TRootState) => {
   return state.app
