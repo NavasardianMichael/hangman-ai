@@ -19,16 +19,17 @@ export const Breadcrumb: FC = () => {
   const [restartGameModalOpen, setRestartGameModalOpen] = useState(false)
 
   const text = useMemo(() => {
+    const isFirstPlayer = currentPlayer === PLAYERS.player1
     const parts = [
       'Բառը',
-      currentStage === GAME_STAGES.composition ? 'գրում է' : 'գուշակում է',
-      currentStage === GAME_STAGES.composition
-        ? currentPlayer === PLAYERS.player1
-          ? 'առաջին'
-          : 'երկրորդ'
-        : currentPlayer === PLAYERS.player1
+      currentStage === GAME_STAGES.discovery ? 'գուշակում է' : 'գրում է',
+      currentStage === GAME_STAGES.discovery
+        ? isFirstPlayer
           ? 'երկրորդ'
-          : 'առաջին',
+          : 'առաջին'
+        : isFirstPlayer
+          ? 'առաջին'
+          : 'երկրորդ',
       'խաղացողը',
     ]
 
@@ -69,6 +70,7 @@ export const Breadcrumb: FC = () => {
         onOk={() => {
           setRestartGameModalOpen(false)
           clearIndexDB(STORE_VARS.DB_NAME, STORE_VARS.STORE_NAME, STORE_VARS.PRIMARY_KEY)
+          localStorage.removeItem(STORE_VARS.COUNTDOWN_LAST_VALUE)
           dispatch(setAppOptions(JSON.parse(JSON.stringify(initialState))))
         }}
         onCancel={() => setRestartGameModalOpen(false)}

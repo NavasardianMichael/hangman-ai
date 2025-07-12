@@ -174,4 +174,5 @@ export const STORE_VARS = {
   DB_NAME: 'hangman-ai',
   STORE_NAME: 'store',
   PRIMARY_KEY: 'app',
+  COUNTDOWN_LAST_VALUE: 'countdownLastValue',
 } as const

@@ -178,3 +178,17 @@ a {
 .ant-input-number-outlined:focus-within {
   box-shadow: 0 5px 0px #5757572f;
 }
+
+.ant-input-number-outlined:focus-within,
+.ant-btn-color-primary {
+  box-shadow: none !important;
+}
+
+.ant-modal-content {
+  padding: 12px !important;
+}
+
+.ant-modal-close {
+  top: 4px !important;
+  right: 4px !important;
+}

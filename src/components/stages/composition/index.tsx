@@ -5,7 +5,7 @@ import { selectGameSettings } from 'store/app/selectors'
 import { setAppOptions } from 'store/app/slice'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
-import { LETTERS, SPACE_CHAR } from 'helpers/constants/app'
+import { LETTERS, SPACE_CHAR, STORE_VARS } from 'helpers/constants/app'
 import { StageComponent } from 'helpers/types/stage'
 import { normalizeSpaces } from 'helpers/utils/commons'
 import { combineClassNames } from 'helpers/utils/styles'
@@ -35,6 +35,7 @@ export const Composition: StageComponent = ({ toNextPage }) => {
         currentWord: normalizeSpaces(word),
       })
     )
+    localStorage.setItem(STORE_VARS.COUNTDOWN_LAST_VALUE, settings.timeLimit.toString())
     toNextPage()
   }
 
