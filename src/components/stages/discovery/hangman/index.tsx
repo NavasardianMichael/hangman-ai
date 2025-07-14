@@ -10,10 +10,21 @@ type TProps = {
 
 export const Hangman: FC<TProps> = ({ step }) => {
   const canvasRef = useRef(null)
+  const prevStepsCount = useRef(0)
+
+  useEffect(() => {
+  }, [step])
 
   useEffect(() => {
     const hangmanDrawingSteps = canvasCreator(canvasRef?.current)
-    hangmanDrawingSteps?.[step]?.()
+    if (step > prevStepsCount.current + 1) {
+      for (let i = 0; i < step; i++) {
+        hangmanDrawingSteps?.[i]?.()
+      }
+    } else {
+      hangmanDrawingSteps?.[step]?.()
+    }
+    prevStepsCount.current = step
   }, [step])
 
   return (

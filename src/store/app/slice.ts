@@ -1,4 +1,4 @@
-import { createSlice,PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { setIndexDB } from 'services/indexDB'
 import { CATEGORIES, DIFFICULTY_LEVELS, GAME_STAGES, PLAY_MODES, PLAYERS, STORE_VARS } from 'helpers/constants/app'
 import { TAppActionPayloads, TAppSlice } from './types'
@@ -32,7 +32,12 @@ export const appSlice = createSlice({
         ...state,
         ...payload,
       }
-      setIndexDB(STORE_VARS.DB_NAME, STORE_VARS.STORE_NAME, STORE_VARS.PRIMARY_KEY, newState)
+      setIndexDB(
+        STORE_VARS.DB_NAME,
+        STORE_VARS.STORE_NAME,
+        STORE_VARS.PRIMARY_KEY,
+        JSON.parse(JSON.stringify(newState))
+      )
       return newState
     },
     setGameSettings: (state, { payload }: PayloadAction<TAppActionPayloads['setGameSettings']>) => {
@@ -40,7 +45,12 @@ export const appSlice = createSlice({
         ...state.settings,
         ...payload,
       }
-      setIndexDB(STORE_VARS.DB_NAME, STORE_VARS.STORE_NAME, STORE_VARS.PRIMARY_KEY, { settings: state.settings })
+      setIndexDB(
+        STORE_VARS.DB_NAME,
+        STORE_VARS.STORE_NAME,
+        STORE_VARS.PRIMARY_KEY,
+        JSON.parse(JSON.stringify({ settings: state.settings }))
+      )
     },
     incrementCurrentPlayerPoint: (state) => {
       if (state.mode === PLAY_MODES.single) {
@@ -49,7 +59,12 @@ export const appSlice = createSlice({
       }
       const opponent = state.currentPlayer === PLAYERS.player1 ? PLAYERS.player2 : PLAYERS.player1
       state.points[opponent] += 1
-      setIndexDB(STORE_VARS.DB_NAME, STORE_VARS.STORE_NAME, STORE_VARS.PRIMARY_KEY, state)
+      setIndexDB(
+        STORE_VARS.DB_NAME,
+        STORE_VARS.STORE_NAME,
+        STORE_VARS.PRIMARY_KEY,
+        JSON.parse(JSON.stringify({ points: state.points }))
+      )
     },
   },
 })

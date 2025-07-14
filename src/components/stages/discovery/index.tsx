@@ -14,6 +14,10 @@ import { CustomButton } from 'components/shared/customButton'
 import { Hangman } from './hangman'
 import styles from './styles.module.css'
 
+type MappedLettersBooleans = {
+  [key in ExtendedLetters[number]]?: boolean
+}
+
 type ExtendedLetters = (typeof LETTERS)[number] | ' '
 
 export const Discovery: StageComponent = ({ toNextPage }) => {
@@ -26,12 +30,15 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
     return Array.from(currentWord.toUpperCase()) as ExtendedLetters[number][]
   }, [currentWord])
 
-  const [guessedLetters, setGuessedLetters] = useState<{
-    [key in ExtendedLetters[number]]?: boolean
-  }>({})
-  const [wastedLetters, setWastedLetters] = useState<{
-    [key in ExtendedLetters[number]]?: boolean
-  }>({})
+  const [guessedLetters, setGuessedLetters] = useState<MappedLettersBooleans>((() => {
+    const storedGuessedLetters = localStorage.getItem(STORE_VARS.GUESSED_LETTERS)
+    return storedGuessedLetters ? JSON.parse(storedGuessedLetters) as MappedLettersBooleans : {}
+  })())
+  const [wastedLetters, setWastedLetters] = useState<MappedLettersBooleans>((() => {
+    const storedWastedLetters = localStorage.getItem(STORE_VARS.WASTED_LETTERS)
+    return storedWastedLetters ? JSON.parse(storedWastedLetters) as MappedLettersBooleans : {}
+  })())
+
 
   const wastedLettersCount = useMemo(() => {
     return Object.keys(wastedLetters).length
@@ -44,7 +51,6 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
   const countdownDeadline = useMemo(() => {
     if (isWordGuessed || wastedLettersCount > 6) return Date.now()
     const lastDeadlineValue = localStorage.getItem(STORE_VARS.COUNTDOWN_LAST_VALUE)
-    console.log({ lastDeadlineValue });
 
     if (!settings.withTimeLimit || settings.timeLimit <= 0) return 0
     if (lastDeadlineValue && !isNaN(Number(lastDeadlineValue))) return Number(lastDeadlineValue) * 1000 + Date.now()
@@ -76,6 +82,8 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
     if (settings.timeLimit && typeof value === 'number') {
       isOpenForCountdownValueStoring.current = false
       localStorage.setItem(STORE_VARS.COUNTDOWN_LAST_VALUE, (Math.floor(value / 1000)).toString())
+      localStorage.setItem(STORE_VARS.GUESSED_LETTERS, JSON.stringify(guessedLetters))
+      localStorage.setItem(STORE_VARS.WASTED_LETTERS, JSON.stringify(wastedLetters))
       timeoutRef.current = setTimeout(() => {
         isOpenForCountdownValueStoring.current = true
       }, 3000)
@@ -86,6 +94,8 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current)
       localStorage.removeItem(STORE_VARS.COUNTDOWN_LAST_VALUE)
+      localStorage.removeItem(STORE_VARS.GUESSED_LETTERS)
+      localStorage.removeItem(STORE_VARS.WASTED_LETTERS)
     }
   }, [])
 

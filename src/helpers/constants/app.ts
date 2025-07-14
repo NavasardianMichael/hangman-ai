@@ -175,4 +175,6 @@ export const STORE_VARS = {
   STORE_NAME: 'store',
   PRIMARY_KEY: 'app',
   COUNTDOWN_LAST_VALUE: 'countdownLastValue',
+  WASTED_LETTERS: 'wastedLetters',
+  GUESSED_LETTERS: 'guessedLetters',
 } as const

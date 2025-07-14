@@ -19,7 +19,6 @@ export const Audio: FC<TProps> = ({ deps, src }) => {
     if (!audio) return;
 
     if (deps.every((dep) => !dep)) return
-    console.log({ deps })
 
     setTimeout(() => {
       audio.play()

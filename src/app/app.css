@@ -105,6 +105,7 @@ a {
 }
 
 .ant-modal-title {
+  text-align: center;
   margin-top: 16px !important;
 }
 
