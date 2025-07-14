@@ -129,8 +129,10 @@ export const Settings: StageComponent = ({ toNextPage }) => {
               />
             </Form.Item>
           )}
-          <CustomButton loading={isPending} disabled={isStartGameDisabled} onClick={handleStartGameBtnClick}>
-            Սկսել խաղը
+          <CustomButton loading={isPending} disabled={isStartGameDisabled} onClick={handleStartGameBtnClick}  >
+            <span style={{ fontSize: (isPending && isSingleMode) ? '.6rem' : '1rem' }}>
+              {(isPending && isSingleMode) ? 'Արհեսատական բանականությունը մտածում է․․․' : 'Սկսել խաղը'}
+            </span>
           </CustomButton>
         </Form>
       </div>

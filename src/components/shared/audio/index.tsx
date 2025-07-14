@@ -11,22 +11,16 @@ export const Audio: FC<TProps> = ({ deps, src }) => {
   const audioRef = useRef<HTMLAudioElement>(null)
 
   useEffect(() => {
-    setTimeout(() => {
-      audioRef?.current?.load()
-    }, 100) // Delay to ensure the audio element is ready
+    audioRef?.current?.load()
   }, [src])
 
   useEffect(() => {
     const audio = audioRef?.current
-    try {
-      if (!audio) return
+    if (!audio) return
 
-      if (deps.every((dep) => !dep)) return
+    if (deps.every((dep) => !dep)) return
 
-      audio?.play?.()
-    } catch (error) {
-      console.error('Error playing audio:', error)
-    }
+    audio.play()
 
     return () => {
       if (!audio) return

@@ -66,9 +66,12 @@ export const Summary: StageComponent = ({ toNextPage }) => {
           loading={isPending}
           className={combineClassNames(isLongText && styles.longTextButton)}
         >
+
           {isLongText
             ? `Բառ գրելու հերթը ${currentPlayer === PLAYERS.player1 ? 'երկրորդ' : 'առաջին'} խաղացողինն է`
-            : 'Շարունակել'}
+            : <span style={{ fontSize: (isPending && isSingleMode) ? '.6rem' : '1rem' }}>
+              {(isPending && isSingleMode) ? 'Արհեսատական բանականությունը մտածում է․․․' : 'Շարունակել'}
+            </span>}
         </CustomButton>
       }
     </div>
