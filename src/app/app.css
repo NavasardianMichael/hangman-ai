@@ -193,3 +193,15 @@ a {
   top: 4px !important;
   right: 4px !important;
 }
+
+.ant-radio-button-wrapper.ant-radio-button-wrapper-checked {
+  color: #fff !important;
+}
+
+.ant-radio-button-wrapper:not(.ant-radio-button-wrapper-checked) {
+  color: var(--secondary-color) !important;
+}
+
+.ant-spin .ant-spin-dot-holder {
+  color: #fff;
+}

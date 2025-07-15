@@ -34,7 +34,7 @@ export const App: FC = () => {
             ) : (
               <div>
                 <Background blurred />
-                <h2 style={{ margin: 0, paddingTop: 40, textAlign: 'center' }}>
+                <h2 style={{ margin: 0, padding: '60px 20px', textAlign: 'center' }}>
                   The App is Designed
                   <br /> only for Touch Devices
                 </h2>

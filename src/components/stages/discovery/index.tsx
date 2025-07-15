@@ -1,6 +1,6 @@
 'use client'
 
-import { MouseEventHandler, useEffect, useMemo, useRef, useState } from 'react'
+import { MouseEventHandler, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Statistic, StatisticTimerProps } from 'antd'
 import { selectAppOptions } from 'store/app/selectors'
 import { incrementCurrentPlayerPoint } from 'store/app/slice'
@@ -20,14 +20,38 @@ type MappedLettersBooleans = {
 
 type ExtendedLetters = (typeof LETTERS)[number] | ' '
 
+const fixLocalIssue = (word: string) => {
+  const result: string[] = [];
+  let i = 0;
+
+  while (i < word.length) {
+    const char = word[i];
+
+    // Check if current and next character form 'ՈՒ'
+    if (char === 'Ո' && word[i + 1] === 'Ւ') {
+      result.push('ՈՒ');
+      i += 2; // Skip both characters
+    } else {
+      result.push(char);
+      i += 1;
+    }
+  }
+
+  return result;
+}
+
 export const Discovery: StageComponent = ({ toNextPage }) => {
   const dispatch = useAppDispatch()
   const { currentWord, mode, settings } = useAppSelector(selectAppOptions)
+  const [finishedAudioTrigger, setFinishedAudioTrigger] = useState(false)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const isOpenForCountdownValueStoring = useRef(true)
 
   const currentWordLettersArr = useMemo(() => {
-    return Array.from(currentWord.toUpperCase()) as ExtendedLetters[number][]
+    const word = currentWord.toUpperCase()
+    const arr = fixLocalIssue(word) as ExtendedLetters[]
+
+    return arr
   }, [currentWord])
 
   const [guessedLetters, setGuessedLetters] = useState<MappedLettersBooleans>((() => {
@@ -49,22 +73,19 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
   }, [currentWordLettersArr, guessedLetters])
 
   const countdownDeadline = useMemo(() => {
-    if (isWordGuessed || wastedLettersCount > 6) return Date.now()
+    // if (isWordGuessed || wastedLettersCount > 6) return Date.now()
     const lastDeadlineValue = localStorage.getItem(STORE_VARS.COUNTDOWN_LAST_VALUE)
 
     if (!settings.withTimeLimit || settings.timeLimit <= 0) return 0
     if (lastDeadlineValue && !isNaN(Number(lastDeadlineValue))) return Number(lastDeadlineValue) * 1000 + Date.now()
     return Date.now() + settings.timeLimit * 1000
-  }, [isWordGuessed, settings.timeLimit, settings.withTimeLimit, wastedLettersCount])
+  }, [settings.timeLimit, settings.withTimeLimit])
 
   const handleAlphabetLetterClick: MouseEventHandler<HTMLButtonElement> = (e) => {
-    const letter = e.currentTarget.name.toUpperCase()
+    const letter = e.currentTarget.name.toUpperCase() as ExtendedLetters
 
-    if (!currentWord.toUpperCase().includes(letter)) {
+    if (!currentWordLettersArr.includes(letter)) {
       setWastedLetters((prev) => ({ ...prev, [letter]: true }))
-      // if(Object.keys(wastedLetters).length + 1 >= 7) {
-      //   toNextPage()
-      // }
       return
     }
 
@@ -75,7 +96,7 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
     toNextPage()
   }
 
-  const countdownOnChange = (value: StatisticTimerProps['value']) => {
+  const countdownOnChange = useCallback((value: StatisticTimerProps['value']) => {
     if (!isOpenForCountdownValueStoring.current) return
 
     if (!value) return;
@@ -88,6 +109,13 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
         isOpenForCountdownValueStoring.current = true
       }, 3000)
     }
+  }, [guessedLetters, settings.timeLimit, wastedLetters])
+
+  const handleTimerFinish: StatisticTimerProps['onFinish'] = () => {
+    if (!isWordGuessed) setFinishedAudioTrigger(true)
+    setTimeout(() => {
+      toNextPage()
+    }, 100)
   }
 
   useEffect(() => {
@@ -118,7 +146,7 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
           type='countdown'
           value={countdownDeadline}
           onChange={countdownOnChange}
-          onFinish={() => toNextPage()}
+          onFinish={handleTimerFinish}
         />
       )}
       <div
@@ -149,7 +177,7 @@ export const Discovery: StageComponent = ({ toNextPage }) => {
       </div>
       <Audio deps={[wastedLettersCount, currentWordLettersArr]} src='/scribble.mp3' />
       <Audio deps={[isWordGuessed]} src='/win.mp3' />
-      <Audio deps={[!isWordGuessed && wastedLettersCount > 6]} src='/loss.mp3' />
+      <Audio deps={[!isWordGuessed && wastedLettersCount > 6, finishedAudioTrigger]} src='/loss.mp3' />
       <Audio deps={[Object.values(guessedLetters).length]} src='/correct.mp3' />
       <Hangman step={wastedLettersCount} />
       <div

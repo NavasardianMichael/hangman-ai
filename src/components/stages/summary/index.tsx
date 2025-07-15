@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Flex, Spin } from 'antd'
 import { getWord } from 'app/getWord/client'
 import { selectAppOptions, selectGameSettings, selectIsSingleMode, selectPoints } from 'store/app/selectors'
 import { setAppOptions } from 'store/app/slice'
@@ -37,9 +38,9 @@ export const Summary: StageComponent = ({ toNextPage }) => {
     if (isSingleMode && !playerWon) {
       const newWord = await getWord({ minLettersCount, category, difficulty })
       payload.currentWord = newWord
-    }
 
-    dispatch(setAppOptions(payload))
+      dispatch(setAppOptions(payload))
+    }
     setIsPending(false)
     toNextPage()
   }
@@ -58,22 +59,20 @@ export const Summary: StageComponent = ({ toNextPage }) => {
         {!isSingleMode && <p className={styles.hint}>Խաղացող 2՝ {player2} միավոր</p>}
       </div>
 
-      {
-        <CustomButton
-          // style={{ fontSize: '.9rem' }}
-          onClick={handleNextPlayerComposes}
-          disabled={isPending}
-          loading={isPending}
-          className={combineClassNames(isLongText && styles.longTextButton)}
-        >
-
+      <CustomButton
+        onClick={handleNextPlayerComposes}
+        disabled={isPending}
+        className={combineClassNames(isLongText && styles.longTextButton)}
+      >
+        <Flex align='center' justify='center' gap={12}>
+          {isPending && <Spin className='' />}
           {isLongText
             ? `Բառ գրելու հերթը ${currentPlayer === PLAYERS.player1 ? 'երկրորդ' : 'առաջին'} խաղացողինն է`
             : <span style={{ fontSize: (isPending && isSingleMode) ? '.6rem' : '1rem' }}>
-              {(isPending && isSingleMode) ? 'Արհեսատական բանականությունը մտածում է․․․' : 'Շարունակել'}
+              {(isPending && isSingleMode) ? 'Արհեստական բանականությունը մտածում է․․․' : 'Շարունակել'}
             </span>}
-        </CustomButton>
-      }
+        </Flex>
+      </CustomButton>
     </div>
   )
 }

@@ -8,11 +8,13 @@ export async function POST(request: Request) {
     const payload: GetWordAPI['payload'] = await request.json()
     const { minLettersCount, category, difficulty } = payload
 
+    const passedWordsText = payload.passedWords?.length ? ` Չկրկնել նախկինում օգտագորված բառերը, որոնք են՝ ${payload.passedWords.join(', ')}։` : ''
+
     const AIResponse = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: `Ստեղծել հայերեն բառ, որը համապատասխանում է հետևյալ չափանիշներին: Բառը պետք է լինի առնվազն ${minLettersCount} տառից բաղկացած, պատկանի "${category}" կատեգորիային  և ունենա "${difficulty}" բարդության մակարդակ հետևյալներից՝ "${Object.values(
         DIFFICULTY_LEVELS
-      )}": Պատասխանիր միայն մեկ բառով, եթե թեման չի ենթադրում երկու բառ, օրինակ՝ անուն ազգանուն, առանց լրացուցիչ բացատրությունների կամ մեկնաբանությունների։`,
+      )}": Պատասխանիր միայն մեկ բառով, եթե թեման չի ենթադրում երկու բառ, օրինակ՝ անուն ազգանուն, առանց լրացուցիչ բացատրությունների կամ մեկնաբանությունների։${passedWordsText}`,
     })
     const res = AIResponse.text
     return new Response(res)

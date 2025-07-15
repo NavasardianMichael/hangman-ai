@@ -5,15 +5,12 @@ import { InfoCircleOutlined, RedoOutlined } from '@ant-design/icons'
 import { Button, Modal } from 'antd'
 import { clearIndexDB } from 'services/indexDB'
 import { selectAppOptions } from 'store/app/selectors'
-import { initialState, setAppOptions } from 'store/app/slice'
-import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { GAME_STAGES, PLAY_MODES, PLAYERS, STAGES_HIDE_BREADCRUMB, STORE_VARS } from 'helpers/constants/app'
 import { combineClassNames } from 'helpers/utils/styles'
 import styles from './styles.module.css'
 
 export const Breadcrumb: FC = () => {
-  const dispatch = useAppDispatch()
   const { currentStage, currentPlayer, mode } = useAppSelector(selectAppOptions)
   const [infoModalOpen, setInfoModalOpen] = useState(false)
   const [restartGameModalOpen, setRestartGameModalOpen] = useState(false)
@@ -71,7 +68,7 @@ export const Breadcrumb: FC = () => {
           setRestartGameModalOpen(false)
           clearIndexDB(STORE_VARS.DB_NAME, STORE_VARS.STORE_NAME, STORE_VARS.PRIMARY_KEY)
           localStorage.removeItem(STORE_VARS.COUNTDOWN_LAST_VALUE)
-          dispatch(setAppOptions(JSON.parse(JSON.stringify(initialState))))
+          window.location.reload()
         }}
         onCancel={() => setRestartGameModalOpen(false)}
         okButtonProps={{ style: { backgroundColor: '#575757', width: 100 } }}

@@ -2,7 +2,7 @@
 
 import { MouseEventHandler, useMemo, useState } from 'react'
 import { LeftOutlined } from '@ant-design/icons'
-import { Button, Flex, Form, InputNumber, Radio, RadioGroupProps, RadioProps, Select, SelectProps } from 'antd'
+import { Button, Flex, Form, InputNumber, Radio, RadioGroupProps, RadioProps, Select, SelectProps, Spin } from 'antd'
 import { getWord } from 'app/getWord/client'
 import { selectAppOptions, selectIsSingleMode } from 'store/app/selectors'
 import { setAppOptions, setGameSettings } from 'store/app/slice'
@@ -129,10 +129,13 @@ export const Settings: StageComponent = ({ toNextPage }) => {
               />
             </Form.Item>
           )}
-          <CustomButton loading={isPending} disabled={isStartGameDisabled} onClick={handleStartGameBtnClick}  >
-            <span style={{ fontSize: (isPending && isSingleMode) ? '.6rem' : '1rem' }}>
-              {(isPending && isSingleMode) ? 'Արհեսատական բանականությունը մտածում է․․․' : 'Սկսել խաղը'}
-            </span>
+          <CustomButton disabled={isStartGameDisabled} onClick={handleStartGameBtnClick}  >
+            <Flex align='center' justify='center' gap={12}>
+              {isPending && <Spin size='small' />}
+              <span style={{ fontSize: (isPending && isSingleMode) ? '.7rem' : '1rem' }}>
+                {(isPending && isSingleMode) ? 'Արհեստական բանականությունը մտածում է․․․' : 'Սկսել խաղը'}
+              </span>
+            </Flex>
           </CustomButton>
         </Form>
       </div>
