@@ -3,7 +3,7 @@ import { normalizeSpaces } from 'helpers/utils/commons'
 import { getPassedWordsFromLocalStorage } from 'helpers/utils/words'
 import { GetWordAPI } from './types'
 
-export const getWord = async (settings: GetWordAPI['payload']): Promise<GetWordAPI['response']> => {
+export const getWord = async (settings: Omit<GetWordAPI['payload'], 'passedWords'>): Promise<GetWordAPI['response']> => {
   const response = await fetch('/getWord', {
     method: 'POST',
     body: JSON.stringify(settings),
