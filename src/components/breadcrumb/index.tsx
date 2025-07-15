@@ -55,8 +55,8 @@ export const Breadcrumb: FC = () => {
           position: 'absolute',
           right: 16,
           top: 12,
-          width: 32,
-          height: 32,
+          width: '2rem',
+          height: '2rem',
           backgroundColor: 'var(--secondary-color)',
         }}
         onClick={() => setRestartGameModalOpen(true)}
@@ -93,8 +93,8 @@ export const Breadcrumb: FC = () => {
               position: 'absolute',
               right: 62,
               top: 12,
-              width: 32,
-              height: 32,
+              width: '2rem',
+              height: '2rem',
               backgroundColor: 'var(--secondary-color)',
             }}
             onClick={() => setInfoModalOpen(true)}

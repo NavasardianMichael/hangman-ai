@@ -8,6 +8,7 @@ import Image from 'next/image'
 import Hint1Img from 'assets/images/hint1.png'
 import Hint2Img from 'assets/images/hint2.png'
 import Hint3Img from 'assets/images/hint3.png'
+import { STORE_VARS } from 'helpers/constants/app'
 import { isInWebView } from 'helpers/utils/commons'
 
 const isIos = () => /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase())
@@ -30,7 +31,7 @@ export const DownloadAppBtn: FC = () => {
   const isInWebViewRef = useRef(isInWebView())
 
   const setAppInstalled = useCallback(() => {
-    localStorage.setItem('pwa-installed', 'true')
+    localStorage.setItem(STORE_VARS.PWA_INSTALLED, 'true')
   }, [])
 
   useEffect(() => {
@@ -144,6 +145,7 @@ export const DownloadAppBtn: FC = () => {
                   src={Hint1Img}
                   alt='Hint 1'
                   style={{ margin: 'auto', maxWidth: '100%', maxHeight: '80vh', objectFit: 'cover' }}
+                  priority
                 />
               </div>
               <div>

@@ -10,10 +10,6 @@
     font-size: 1.5rem;
     font-weight: 600;
 
-    @media (orientation: landscape) {
-      justify-content: start;
-    }
-
     .cell {
       flex-basis: calc(100% / 10 - 9 * 0.5rem / 10);
 
@@ -58,7 +54,7 @@
     padding: 1rem;
     position: fixed;
     left: 0;
-    bottom: calc(32px + 30px);
+    bottom: 3.75rem;
     color: var(--primary-color);
     font-weight: 500;
     font-size: 1.25rem;

@@ -8,7 +8,9 @@ export async function POST(request: Request) {
     const payload: GetWordAPI['payload'] = await request.json()
     const { minLettersCount, category, difficulty } = payload
 
-    const passedWordsText = payload.passedWords?.length ? ` Չկրկնել նախկինում օգտագորված բառերը, որոնք են՝ ${payload.passedWords.join(', ')}։` : ''
+    const passedWordsText = payload.passedWords?.length
+      ? ` Չկրկնել նախկինում օգտագործված բառերը, որոնք են՝ ${payload.passedWords.join(', ')}։`
+      : ''
 
     const AIResponse = await ai.models.generateContent({
       model: 'gemini-2.5-flash',

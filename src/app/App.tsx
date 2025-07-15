@@ -11,6 +11,9 @@ import 'styles/variables.css'
 import './app.css'
 import 'styles/commons.css'
 
+import '@ant-design/v5-patch-for-react-19';
+
+
 export const App: FC = () => {
   const [isTouchDevice, setIsTouchDevice] = useState<boolean | null>(null)
 

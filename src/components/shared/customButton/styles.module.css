@@ -6,7 +6,7 @@
   box-shadow: none;
   left: 0;
   bottom: 0;
-  height: 60px !important;
+  height: 3.75rem !important;
   color: #ececec !important;
   border-radius: 0;
   font-size: 1rem !important;
@@ -32,7 +32,7 @@
     left: 0;
     right: 0;
     display: block;
-    height: 80px;
+    height: 5rem;
     width: 100%;
     background-color: #575757;
     opacity: 0.65;

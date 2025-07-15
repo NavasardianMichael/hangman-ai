@@ -30,7 +30,7 @@ export const CATEGORIES = {
   ուտելիք: 'ուտելիք',
   մասնագիտություններ: 'մասնագիտություններ',
   սպորտ: 'սպորտ',
-  ֆուտբոլիստներ: 'ֆուտբոլիստներ',
+  ֆուտբոլ: 'ֆուտբոլ և ֆուտբոլիստներ',
   երաժշտություն: 'երաժշտություն',
   ֆիլմեր: 'ֆիլմեր',
   գրքեր: 'գրքեր',
@@ -178,4 +178,5 @@ export const STORE_VARS = {
   WASTED_LETTERS: 'hangman-ai-wastedLetters',
   GUESSED_LETTERS: 'hangman-ai-guessedLetters',
   PASSED_WORDS: 'hangman-ai-passedWords',
+  PWA_INSTALLED: 'hangman-ai-pwa-installed',
 } as const

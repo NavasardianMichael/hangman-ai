@@ -35,7 +35,7 @@
     padding: 1rem;
     position: fixed;
     left: 0;
-    bottom: calc(32px + 30px);
+    bottom: 3.75rem;
     color: var(--primary-color);
     font-weight: 500;
     font-size: 1.25rem;

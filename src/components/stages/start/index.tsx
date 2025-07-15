@@ -5,14 +5,14 @@ import { Button, ConfigProvider, ThemeConfig } from 'antd'
 import { setAppOptions } from 'store/app/slice'
 import { TAppSlice } from 'store/app/types'
 import { useAppDispatch } from 'hooks/useAppDispatch'
-import { PLAY_MODES } from 'helpers/constants/app'
+import { PLAY_MODES, STORE_VARS } from 'helpers/constants/app'
 import { StageComponent } from 'helpers/types/stage'
 import { DownloadAppBtn } from 'components/downloadAppBtn'
 import styles from './styles.module.css'
 
 export const Start: StageComponent = ({ toNextPage }) => {
   const dispatch = useAppDispatch()
-  const isAppInstalledRef = useRef(localStorage.getItem('pwa-installed') === 'true')
+  const isAppInstalledRef = useRef(localStorage.getItem(STORE_VARS.PWA_INSTALLED) === 'true')
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = async (event) => {
     const mode = event.currentTarget.name as TAppSlice['mode']
@@ -43,7 +43,7 @@ export const Start: StageComponent = ({ toNextPage }) => {
           className={styles.startBtn}
         >
           <span style={{ transform: 'translateY(-3px)' }}>Մեկ հոգով</span>
-          <span style={{ position: 'absolute', bottom: 10, left: '50%', fontSize: 8, transform: 'translateX(-50%)' }}>
+          <span style={{ position: 'absolute', bottom: 9, left: '50%', fontSize: 8, transform: 'translateX(-50%)' }}>
             արհեստական բանականության դեմ
           </span>
         </Button>
