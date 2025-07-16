@@ -126,6 +126,7 @@ a {
 .ant-checkbox-inner {
   background-color: transparent !important;
   border: 1px solid #575757 !important;
+  box-shadow: none !important;
 }
 
 .ant-radio-button-wrapper {

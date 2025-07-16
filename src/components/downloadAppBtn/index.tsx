@@ -4,6 +4,7 @@ import { createContext, FC, MouseEventHandler, useCallback, useEffect, useMemo, 
 import { DownloadOutlined } from '@ant-design/icons'
 import type { NotificationArgsProps } from 'antd'
 import { Button, Carousel, Modal, notification } from 'antd'
+import Typography from 'antd/es/typography/Typography'
 import Image from 'next/image'
 import Hint1Img from 'assets/images/hint1.png'
 import Hint2Img from 'assets/images/hint2.png'
@@ -79,7 +80,7 @@ export const DownloadAppBtn: FC = () => {
   const openNotification = useCallback(
     (placement: NotificationPlacement) => {
       api.info({
-        message: <b>Ներբեռնե՞լ հավելվածը</b>,
+        message: <div style={{ textAlign: 'center' }}><b>Ներբեռնե՞լ հավելվածը</b><Typography style={{ fontSize: '8px', textAlign: 'center' }}>* Ինկոգնիտո ռեժիմում կարող է չաշխատել</Typography></div>,
         duration: 0,
         icon: ' ',
         description: (
@@ -139,6 +140,7 @@ export const DownloadAppBtn: FC = () => {
           }}
         >
           <div style={{ maxHeight: '80vh', boxSizing: 'border-box' }}>
+            <Typography style={{ fontSize: '8px', textAlign: 'center' }}>* Ինկոգնիտո ռեժիմում կարող է չաշխատել</Typography>
             <Carousel autoplay arrows dots dotPosition='bottom'>
               <div>
                 <Image
