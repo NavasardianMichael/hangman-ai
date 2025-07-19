@@ -32,7 +32,7 @@ export const DownloadAppBtn: FC = () => {
   const isInWebViewRef = useRef(isInWebView())
 
   const setAppInstalled = useCallback(() => {
-    localStorage.setItem(STORE_VARS.PWA_INSTALLED, 'true')
+    localStorage.setItem(STORE_VARS.PWA_INSTALLED_DATE, Date.now().toString())
   }, [])
 
   useEffect(() => {

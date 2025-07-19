@@ -10,10 +10,14 @@ import { StageComponent } from 'helpers/types/stage'
 import { DownloadAppBtn } from 'components/downloadAppBtn'
 import styles from './styles.module.css'
 
+const timeoutToHintDownloadApp = 60 * 60 * 1000
+
 export const Start: StageComponent = ({ toNextPage }) => {
   const dispatch = useAppDispatch()
-  const isAppInstalledRef = useRef(localStorage.getItem(STORE_VARS.PWA_INSTALLED) === 'true')
-
+  const isAppInstalledRef = useRef((() => {
+    const pwaInstalledDate = localStorage.getItem(STORE_VARS.PWA_INSTALLED_DATE)
+    return pwaInstalledDate && !isNaN(+pwaInstalledDate) ? Date.now() - +pwaInstalledDate < timeoutToHintDownloadApp : false
+  })())
   const handleClick: MouseEventHandler<HTMLButtonElement> = async (event) => {
     const mode = event.currentTarget.name as TAppSlice['mode']
     dispatch(setAppOptions({ mode }))
