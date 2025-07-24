@@ -23,13 +23,12 @@ export const End: StageComponent = () => {
         🏆
         {mode === PLAY_MODES.single
           ? `Դուք հաղթեցիք`
-          : `${
-              playerWon === PLAYERS.player1
-                ? 'Հաղթեց առաջին խաղացողը'
-                : playerWon === PLAYERS.player2
-                ? 'Հաղթեց երկրորդ խաղացողը'
-                : 'Խաղն ավարտվեց ոչ-ոքի'
-            } `}
+          : `${playerWon === PLAYERS.player1
+            ? 'Հաղթեց առաջին խաղացողը'
+            : playerWon === PLAYERS.player2
+              ? 'Հաղթեց երկրորդ խաղացողը'
+              : 'Խաղն ավարտվեց ոչ-ոքի'
+          } `}
       </p>
       <CustomButton onClick={() => dispatch(setAppOptions(JSON.parse(JSON.stringify(initialState))))}>
         Խաղալ նորից

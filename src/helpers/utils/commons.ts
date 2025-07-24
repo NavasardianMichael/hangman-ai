@@ -14,3 +14,7 @@ export const isInWebView = () => {
 export const normalizeSpaces = (str: string) => {
   return str.trim().replace(/\s+/g, ' ')
 }
+
+export const isIosInStandaloneMode = () => 'standalone' in window.navigator && window.navigator.standalone
+
+export const isNonIosStandaloneMode = () => window.matchMedia('(display-mode: standalone)').matches

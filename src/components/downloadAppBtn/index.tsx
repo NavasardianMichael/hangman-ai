@@ -10,15 +10,11 @@ import Hint1Img from 'assets/images/hint1.png'
 import Hint2Img from 'assets/images/hint2.png'
 import Hint3Img from 'assets/images/hint3.png'
 import { STORE_VARS } from 'helpers/constants/app'
-import { isInWebView } from 'helpers/utils/commons'
+import { isInWebView, isIosInStandaloneMode, isNonIosStandaloneMode } from 'helpers/utils/commons'
 
 const isIos = () => /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase())
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let deferredPrompt: any | null = null
-
-const isIosInStandaloneMode = () => 'standalone' in window.navigator && window.navigator.standalone
-
-const isNonIosStandaloneMode = () => window.matchMedia('(display-mode: standalone)').matches
 
 type NotificationPlacement = NotificationArgsProps['placement']
 
@@ -30,6 +26,10 @@ export const DownloadAppBtn: FC = () => {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const isIosRef = useRef(isIos())
   const isInWebViewRef = useRef(isInWebView())
+  const isStandaloneModeRef = useRef((() => {
+    if (isIos()) return isIosInStandaloneMode()
+    return isNonIosStandaloneMode()
+  })())
 
   const setAppInstalled = useCallback(() => {
     localStorage.setItem(STORE_VARS.PWA_INSTALLED_DATE, Date.now().toString())
@@ -44,6 +44,7 @@ export const DownloadAppBtn: FC = () => {
     }
 
     if (isInWebViewRef.current) return
+
     if (isNonIosStandaloneMode()) return setAppInstalled()
 
     const preservePrompt = (event: Event) => {
@@ -122,6 +123,9 @@ export const DownloadAppBtn: FC = () => {
   }, [openNotification])
 
   const contextValue = useMemo(() => ({ name: 'Ant Design' }), [])
+  console.log({ isStandaloneModeRef });
+
+  if (isStandaloneModeRef.current) return
 
   return (
     <>
